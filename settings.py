@@ -48,15 +48,15 @@ for i in range(-2,3,1):
 
 mapping = [
     {'key': 'f2',
-     'position': [0, y_init],
+     'position': [0, y_init + (4 * line_dist / 2)],
      'keyboard': 'f'
      },
     {'key': 'e2',
-     'position': [0, y_init - (1 * line_dist / 2)],
+     'position': [0, y_init + (3 * line_dist / 2)],
      'keyboard': 'e'
      },
     {'key': 'e1',
-     'position': [0, y_init - (8 * line_dist / 2)],
+     'position': [0, y_init + (-4 * line_dist / 2)],
      'keyboard': 'e'
      },
 ]
