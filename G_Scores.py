@@ -19,7 +19,7 @@ control.initialize(exp)
 
 nTrials = 5
 
-
+print(lines)
 # Create a canvas and add a clef and white lines to form the music sheet
 music_sheet = stimuli.Canvas(settings_canvas['screen_size'], colour=settings_canvas['colour'])
 

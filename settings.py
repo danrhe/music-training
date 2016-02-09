@@ -37,7 +37,7 @@ y_init = 120
 line_dist = 30
 
 lines = list()
-for i in range(-2,2,1):
+for i in range(-2,3,1):
     lines.append(
         {
         'start_point': [-110, y_init - (i * line_dist)],
