@@ -34,10 +34,10 @@ for item in lines:
     line.plot(music_sheet)
 
 
-notes = []
+Notes = []
 
 for item in mapping:
-    notes.append(Note(*item.values()))
+    Notes.append(Note(*item.values()))
 
 control.start()
 
@@ -45,7 +45,7 @@ control.start()
 for iTrial in range(0, nTrials):
 
     # get the index of one note - key mapping ; keep in mind that index starts with 0, thus last index is len - 1
-    iNote = random.randint(0, (len(notes)-1))
+    iNote = random.randint(0, (len(Notes)-1))
 
 
     # Clear the screen
@@ -55,14 +55,14 @@ for iTrial in range(0, nTrials):
     music_sheet.present(clear=False, update=True)
 
     # Add the note to the sheet
-    notes[iNote].stimuli.present(clear=False, update=True)
+    Notes[iNote].stimuli.present(clear=False, update=True)
 
 
     # Wait for button press
-    exp.keyboard.wait(eval("constants.K_" + notes[iNote].keyboard))
+    exp.keyboard.wait(eval("constants.K_" + Notes[iNote].keyboard))
 
     # Add feedback to the screen
-    text_mapping = stimuli.TextBox(notes[iNote].key, [100, 100], position=[0, (y_init - (7 * line_dist))], text_size=24)
+    text_mapping = stimuli.TextBox(Notes[iNote].key, [100, 100], position=[0, (y_init - (7 * line_dist))], text_size=24)
     text_mapping.present(clear=False,update=True)
     exp.keyboard.wait(constants.K_SPACE)
 
