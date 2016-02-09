@@ -4,9 +4,11 @@ from expyriment import stimuli
 ############
 line_dist = 30
 white = [255, 255, 255]
+y_init = 120
 
-class note:
-    def __init__(self, position,key, keyboard='K_SPACE',colour=None):
+class Note:
+
+    def __init__(self, position, key, keyboard='K_SPACE', colour=None):
 
         if colour is not None:
             self.colour = colour
@@ -28,16 +30,13 @@ class note:
 
 
 settings_canvas = {
-    #[SCREEN_WIDTH, SCREEN_HEIGHT]}
+    # [SCREEN_WIDTH, SCREEN_HEIGHT]}
     'screen_size': [1680, 1050],
     'colour': [0, 0, 0],
     }
 
-y_init = 120
-line_dist = 30
-
 lines = list()
-for i in range(-2,3,1):
+for i in range(-2, 3, 1):
     lines.append(
         {
         'start_point': [-110, y_init - (i * line_dist)],
@@ -60,6 +59,4 @@ mapping = [
      'keyboard': 'e'
      },
 ]
-
-
 
