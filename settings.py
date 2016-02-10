@@ -1,33 +1,11 @@
-from expyriment import stimuli
+
 ############
 # Settings #
 ############
 line_dist = 30
 white = [255, 255, 255]
 y_init = 120
-
-class Note:
-
-    def __init__(self, position, key, keyboard='K_SPACE', colour=None):
-
-        if colour is not None:
-            self.colour = colour
-        else:
-            self.colour = white
-
-        # Assign
-        self.key = key
-        self.position = position
-        self.keyboard = keyboard
-
-        # standard values for each note
-        self.size = [line_dist, line_dist / 2]
-        self.stimuli = stimuli.Ellipse(self.size, colour=self.colour, position=self.position)
-
-        self.count = 0
-        self.RTs = []
-        self.misses = 0
-
+nTrials = 10
 
 settings_canvas = {
     # [SCREEN_WIDTH, SCREEN_HEIGHT]}
@@ -36,14 +14,6 @@ settings_canvas = {
     }
 
 lines = list()
-for i in range(-2, 3, 1):
-    lines.append(
-        {
-        'start_point': [-110, y_init - (i * line_dist)],
-        'end_point': [110, y_init - (i * line_dist)],
-        'line_width': 3,
-        'colour': white,
-        })
 
 mapping = [
     {'key': 'f2',
