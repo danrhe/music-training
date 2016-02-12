@@ -3,9 +3,10 @@
 # Settings #
 ############
 line_dist = 30
-white = [255, 255, 255]
 y_init = 120
-nTrials = 10
+
+white = [255, 255, 255]
+nTrials = 17
 
 settings_canvas = {
     # [SCREEN_WIDTH, SCREEN_HEIGHT]}
@@ -16,41 +17,78 @@ settings_canvas = {
 lines = list()
 
 mapping = [
-    {'key': 'f2',
-     'position': [0, y_init + (4 * line_dist / 2)],
+    {'key': 'c3',
+     'position_factor': 8,
+     'keyboard': 'c'
+     },
+    {'key': 'b2',
+     'position_factor': 7,
+     'keyboard': 'b'
+     },
+    {'key': 'a2',
+     'position_factor': 6,
+     'keyboard': 'a'
+     },
+    {'key': 'g2',
+     'position_factor': 5,
+     'keyboard': 'g'
+     },
+   {'key': 'f2',
+     'position_factor': 4,
      'keyboard': 'f'
      },
     {'key': 'e2',
-     'position': [0, y_init + (3 * line_dist / 2)],
+     'position_factor': 3,
      'keyboard': 'e'
      },
     {'key': 'd2',
-     'position': [0, y_init + (2 * line_dist / 2)],
+     'position_factor': 2,
      'keyboard': 'd'
      },
     {'key': 'c2',
-     'position': [0, y_init + (1 * line_dist / 2)],
+     'position_factor': 1,
      'keyboard': 'c'
      },
     {'key': 'b1',
-     'position': [0, y_init + (0 * line_dist / 2)],
+     'position_factor': 0,
      'keyboard': 'b'
      },
     {'key': 'a1',
-     'position': [0, y_init + (-1 * line_dist / 2)],
+     'position_factor': -1,
      'keyboard': 'a'
      },
     {'key': 'g1',
-     'position': [0, y_init + (-2 * line_dist / 2)],
+     'position_factor': -2,
      'keyboard': 'g'
      },
     {'key': 'f1',
-     'position': [0, y_init + (-3 * line_dist / 2)],
+     'position_factor': -3,
      'keyboard': 'f'
      },
-    {'key': 'e1',
-     'position': [0, y_init + (-4 * line_dist / 2)],
+     {'key': 'e1',
+     'position_factor': -4,
      'keyboard': 'e'
      },
+    {'key': 'd1',
+     'position_factor': -5,
+     'keyboard': 'd'
+     },
+    {'key': 'c1',
+     'position_factor': -6,
+     'keyboard': 'c'
+     },
+    {'key': 'b',
+     'position_factor': -7,
+     'keyboard': 'b'
+     },
+    {'key': 'a',
+     'position_factor': -8,
+     'keyboard': 'a'
+    },
+
 ]
 
+"""
+
+
+"""

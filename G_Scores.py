@@ -13,10 +13,13 @@ from expyriment.misc import constants
 import random
 import numpy as np
 
-control.defaults.open_gl = False # switch off opengl to avoid screen refesh sync
+# switch off opengl to avoid screen refesh sync
+control.defaults.open_gl = False
+
 control.set_develop_mode(True)
 
 exp = design.Experiment(name="G_Scores")
+
 control.initialize(exp)
 
 # Create a canvas and add a clef and white lines to form the music sheet
@@ -31,17 +34,20 @@ for item in lines:
     line = stimuli.Line(item['start_point'], item['end_point'], item['line_width'], colour=item['colour'])
     line.plot(music_sheet)
 
+# Create list of Note objects
 Notes = []
 
 for item in mapping:
     Notes.append(Note(*item.values()))
 
+random.shuffle(Notes)
 control.start()
 
-for iTrial in range(0, nTrials):
+# Run is created to present more notes than note-objects
+nRun = len(Notes)
+iRun = 0
 
-    # get the index of one note - key mapping ; keep in mind that index starts with 0, thus last index is len - 1
-    iNote = random.randint(0, (len(Notes)-1))
+for iTrial in range(0, nTrials):
 
     # Clear the screen
     stimuli.BlankScreen().present(clear=True, update=False)
@@ -49,39 +55,52 @@ for iTrial in range(0, nTrials):
     # Present the sheet
     music_sheet.present(clear=False, update=True)
 
-    # Add the note to the sheet
-    Notes[iNote].stimuli.present(clear=False, update=True)
+    # Add the note to the sheet; if Note needs extra help lines they need to be added first
+    if len(Notes[iRun].help_lines) > 0:
+        for hline in Notes[iRun].help_lines:
+            vals = hline.values()
 
+            help_line = stimuli.Line(hline['start_point'], hline['end_point'], hline['line_width'], colour=hline['colour'])
+            help_line.present(clear=False, update=False)
+
+    Notes[iRun].stimuli.present(clear=False, update=True)
 
     # Wait for button press
     key, rt = exp.keyboard.wait(constants.K_ALL_LETTERS)
 
     # Evaluate button press
-    key_expected = eval("constants.K_" + Notes[iNote].keyboard)
+    key_expected = eval("constants.K_" + Notes[iRun].keyboard)
 
     if isExpectedButton (key, key_expected):
         f = "correct"
-        Notes[iNote].RTs = np.append(Notes[iNote].RTs, rt)
+        Notes[iRun].RTs = np.append(Notes[iRun].RTs, rt)
         str_rt = str(rt)
     else:
         f = "wrong"
-        Notes[iNote].misses += 1
+        Notes[iRun].misses += 1
         str_rt = ""
 
     # Calculate mean RT
-    if len(Notes[iNote].RTs) > 0:
-        str_mean = str(np.mean(Notes[iNote].RTs))
+    if len(Notes[iRun].RTs) > 0:
+        str_mean = str(np.mean(Notes[iRun].RTs))
     else:
         str_mean = ""
-    feedback_text = "Type response: " + f + "\nRT: " + str_rt + "\nMean: " + str_mean + "\nMisses: " + str(Notes[iNote].misses)
+    feedback_text = "Type response: " + f + "\nRT: " + str_rt + "\nMean: " + str_mean + "\nMisses: " + str(Notes[iRun].misses)
     feedback = stimuli.TextBox(feedback_text, [400, 400], position=[0, (y_init - (15 * line_dist))], text_size=24)
     feedback.present(clear=False, update=True)
 
 
     # Add feedback to the screen
-    text_mapping = stimuli.TextBox(Notes[iNote].key, [100, 100], position=[0, (y_init + (3 * line_dist))], text_size=24)
-    text_mapping.present(clear=False,update=True)
+    text_mapping = stimuli.TextBox(Notes[iRun].key, [100, 100], position=[0, (y_init - (6 * line_dist))], text_size=24)
+    text_mapping.present(clear=False, update=True)
     exp.keyboard.wait(constants.K_SPACE)
+
+    # Check if all notes have been shown. If not, increase index, otherwise shuffle notes and begin again
+    if iRun < (nRun - 1):
+        iRun += 1
+    else:
+        random.shuffle(Notes)
+        iRun = 0
 
 control.end(goodbye_text='Thats it', goodbye_delay=1000)
 
