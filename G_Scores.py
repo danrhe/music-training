@@ -7,7 +7,6 @@ A simple training for sheets music reading
 """
 
 from expyriment import design, control, stimuli
-from settings import *
 from ffunctions import *
 from expyriment.misc import constants
 import random
@@ -18,26 +17,40 @@ control.defaults.open_gl = False
 
 control.set_develop_mode(True)
 
-exp = design.Experiment(name="G_Scores")
+exp = design.Experiment(name="")
 
 control.initialize(exp)
 
-# Create a canvas and add a clef and white lines to form the music sheet
-music_sheet = stimuli.Canvas(settings_canvas['screen_size'], colour=settings_canvas['colour'])
+options = {"Design": 1,
+           "clef": ["f"],
+           "black_keys": False,
+           "all_notes_once": True,
+           "color": "wb"
+           }
 
-clef = stimuli.Picture('Stimuli/notenschluessel2.jpg',position=[-150, y_init - (2 * line_dist)])
-clef.scale(.08)
-clef.plot(music_sheet)
+# setupTraining(options)
+
+# Create one ore more canvas and add a clef and white lines to form the music sheet
+music_sheet = dict()
+
+for clef in options['clef']:
+    music_sheet[clef] = createMusicSheet(clef)
+
 
 lines = createLines()
 for item in lines:
     line = stimuli.Line(item['start_point'], item['end_point'], item['line_width'], colour=item['colour'])
-    line.plot(music_sheet)
+
+    for clef in options['clef']:
+        line.plot(music_sheet[clef])
 
 # Create list of Note objects
 Notes = []
 
-for item in mapping:
+# get notes with certain characteristics
+selection = [x for x in mapping if x['clef'] in options['clef']]
+
+for item in selection:
     Notes.append(Note(*item.values()))
 
 random.shuffle(Notes)
@@ -53,7 +66,7 @@ for iTrial in range(0, nTrials):
     stimuli.BlankScreen().present(clear=True, update=False)
 
     # Present the sheet
-    music_sheet.present(clear=False, update=True)
+    music_sheet[Notes[iRun].clef].present(clear=False, update=True)
 
     # Add the note to the sheet; if Note needs extra help lines they need to be added first
     if len(Notes[iRun].help_lines) > 0:
@@ -91,7 +104,7 @@ for iTrial in range(0, nTrials):
 
 
     # Add feedback to the screen
-    text_mapping = stimuli.TextBox(Notes[iRun].key, [100, 100], position=[0, (y_init - (6 * line_dist))], text_size=24)
+    text_mapping = stimuli.TextBox(Notes[iRun].key, [100, 100], position=[0, (y_init - (7 * line_dist))], text_size=24)
     text_mapping.present(clear=False, update=True)
     exp.keyboard.wait(constants.K_SPACE)
 

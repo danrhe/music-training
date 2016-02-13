@@ -12,7 +12,7 @@ class Note:
 
     """
 
-    def __init__(self, position_factor, key, keyboard='K_SPACE', colour=None):
+    def __init__(self, position_factor, clef, key, keyboard='K_SPACE', colour=None):
 
         if colour is not None:
             self.colour = colour
@@ -21,6 +21,7 @@ class Note:
 
         # Assign
         self.key = key
+        self.clef = clef
         self.position_factor = position_factor
         self.position_y = y_init + (position_factor * line_dist / 2)
         self.position = [0, self.position_y]
@@ -78,6 +79,23 @@ def createLines(midline=y_init, distance=line_dist):
             'colour': white,
             })
     return lines
+
+def setupTraining(options):
+    """
+    Creates design for music training.
+    Design:
+    """
+
+
+def createMusicSheet(clef_name):
+    new_sheet = stimuli.Canvas(settings_canvas['screen_size'], colour=settings_canvas['colour'])
+
+    clef = stimuli.Picture('Stimuli/clef_wb_' + clef_name + '.jpg', position=[-150, y_init - (0 * line_dist)])
+    clef.scale(.08)
+    clef.plot(new_sheet)
+
+    return new_sheet
+
 
 
 
