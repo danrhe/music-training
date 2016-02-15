@@ -6,7 +6,7 @@ A simple training for sheets music reading
 
 """
 
-from expyriment import design, control, stimuli
+from expyriment import design, control, io
 from ffunctions import *
 from expyriment.misc import constants
 import random
@@ -15,12 +15,12 @@ import numpy as np
 # switch off opengl to avoid screen refesh sync
 control.defaults.open_gl = False
 
-control.set_develop_mode(True)
+# control.set_develop_mode(True)
 
-exp = design.Experiment(name="")
+exp = design.Experiment(name="MusicTraining")
 
 control.initialize(exp)
-
+#io.DataFile
 options = {"Design": 1,
            "clef": ["f"],
            "black_keys": False,
@@ -54,7 +54,10 @@ for item in selection:
     Notes.append(Note(*item.values()))
 
 random.shuffle(Notes)
-control.start()
+control.start(subject_id=25)
+
+# Add variable header to data_file
+exp._data.add_variable_names(["Trial", "clef", "key", "Expected", "Type_response", "RT"])
 
 # Run is created to present more notes than note-objects
 nRun = len(Notes)
@@ -108,6 +111,8 @@ for iTrial in range(0, nTrials):
     text_mapping.present(clear=False, update=True)
     exp.keyboard.wait(constants.K_SPACE)
 
+    # Export data
+    exp._data.add([iTrial, Notes[iRun].clef, Notes[iRun].key, key_expected, f, rt])
     # Check if all notes have been shown. If not, increase index, otherwise shuffle notes and begin again
     if iRun < (nRun - 1):
         iRun += 1

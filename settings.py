@@ -6,11 +6,14 @@ line_dist = 30
 y_init = 120
 
 white = [255, 255, 255]
-nTrials = 17
+nTrials = 2
 
 settings_canvas = {
     # [SCREEN_WIDTH, SCREEN_HEIGHT]}
-    'screen_size': [1680, 1050],
+    # iMac    [1920, 1080],
+    # Macbook [1680, 1050],
+    'screen_size': [1920, 1080],
+
     'colour': [0, 0, 0],
     }
 
