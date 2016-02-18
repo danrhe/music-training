@@ -8,7 +8,7 @@ A simple training for sheets music reading
 """
 Import Contributed packages
 """
-from expyriment import design, control, io
+from expyriment import design, control
 import random
 import numpy as np
 
@@ -19,7 +19,7 @@ Custom settings
 control.defaults.open_gl = False
 
 # Fast open close and windowed; default: False
-control.set_develop_mode(True)
+#control.set_develop_mode(True)
 
 '''
 Prepare experiment
@@ -27,9 +27,9 @@ Prepare experiment
 exp = design.Experiment(name="MusicTraining")
 control.initialize(exp)
 
-from settings import *
+from settings import Settings
 
-set = Settings([800,600])
+set = Settings([1680,1050])
 
 
 # Create line parameters

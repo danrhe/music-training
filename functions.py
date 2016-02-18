@@ -41,7 +41,7 @@ class Note:
                 self.help_lines.append({
                     'start_point': [-1.2 * line_dist, y_init + (line * line_dist / 2)],
                     'end_point': [1.2 * line_dist, y_init + (line * line_dist / 2)],
-                    'line_width': 2,
+                    'line_width': 1,
                     'colour': self.colour,
                 })
         else:
@@ -115,7 +115,7 @@ def createMusicSheet(clef_name, lines, settings_field, screen_size, design, y_in
     field.plot(new_sheet)
     # Add clef
     clef = stimuli.Picture('Stimuli/clef_' + design + '_' + clef_name + '.jpg', position=[-150, y_init - (0 * line_dist)])
-    clef.scale(.08)
+    clef.scale(.02)
     clef.plot(new_sheet)
 
     # Add 5 lines
