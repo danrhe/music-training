@@ -1,9 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
 from expyriment import stimuli
-from settings import *
 import numpy as np
+from expyriment.misc import constants
 
 
 class Note:
@@ -12,14 +11,12 @@ class Note:
 
     """
 
-    def __init__(self, position_factor, clef, key, keyboard='K_SPACE', colour=None):
+    def __init__(self, position_factor, clef, key, keyboard, colour, y_init, line_dist):
 
-        if colour is not None:
-            self.colour = colour
-        else:
-            self.colour = white
+
 
         # Assign
+        self.colour = colour
         self.key = key
         self.clef = clef
         self.position_factor = position_factor
@@ -44,8 +41,8 @@ class Note:
                 self.help_lines.append({
                     'start_point': [-1.2 * line_dist, y_init + (line * line_dist / 2)],
                     'end_point': [1.2 * line_dist, y_init + (line * line_dist / 2)],
-                    'line_width': 3,
-                    'colour': white,
+                    'line_width': 2,
+                    'colour': self.colour,
                 })
         else:
             if self.position_factor >= 6:
@@ -54,8 +51,8 @@ class Note:
                     self.help_lines.append({
                         'start_point': [-1.2 * line_dist, y_init + (line * line_dist / 2)],
                         'end_point': [1.2 * line_dist, y_init + (line * line_dist / 2)],
-                        'line_width': 3,
-                        'colour': white,
+                        'line_width': 2,
+                        'colour': self.colour,
                     })
 
 def isExpectedButton (expectedButton, actualPressedButton):
@@ -65,18 +62,24 @@ def isExpectedButton (expectedButton, actualPressedButton):
     else:
         return False
 
-def createLines(midline=y_init, distance=line_dist):
+def createLineParameter(midline, distance, design):
     """
     Creates Parameters for music sheet lines
     """
     lines = list()
+
+    if design == 'wb':
+        colour = constants.C_WHITE
+    else:
+        colour = constants.C_BLACK
+
     for i in range(-2, 3, 1):
         lines.append(
             {
             'start_point': [-110, midline - (i * distance)],
             'end_point': [110, midline - (i * distance)],
             'line_width': 3,
-            'colour': white,
+            'colour': colour
             })
     return lines
 
@@ -87,14 +90,41 @@ def setupTraining(options):
     """
 
 
-def createMusicSheet(clef_name):
-    new_sheet = stimuli.Canvas(settings_canvas['screen_size'], colour=settings_canvas['colour'])
+def createMusicSheet(clef_name, lines, settings_field, screen_size, design, y_init, line_dist):
+    """
+    Creates music sheet with clef and horizontal lines
+    """
 
-    clef = stimuli.Picture('Stimuli/clef_wb_' + clef_name + '.jpg', position=[-150, y_init - (0 * line_dist)])
+    if design == "bw":
+        colour = (0,0,0)
+    else:
+        colour = (255,255,255)
+
+    new_sheet = stimuli.Canvas(screen_size, colour=colour)
+
+    # Add field for black on white
+    f = 3
+    field_x = settings_field._window_size[0] / f
+    field_y = settings_field._window_size[1] / f
+    pos_x = 0
+    pos_y = field_y / 2
+
+
+
+    field = stimuli.Canvas([field_x, field_y], position=[pos_x, pos_y ] ,colour=constants.C_WHITE)
+    field.plot(new_sheet)
+    # Add clef
+    clef = stimuli.Picture('Stimuli/clef_' + design + '_' + clef_name + '.jpg', position=[-150, y_init - (0 * line_dist)])
     clef.scale(.08)
     clef.plot(new_sheet)
 
+    # Add 5 lines
+    for item in lines:
+        line = stimuli.Line(item['start_point'], item['end_point'], item['line_width'], colour=item['colour'])
+        line.plot(new_sheet)
+
     return new_sheet
+
 
 
 

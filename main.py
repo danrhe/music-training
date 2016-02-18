@@ -5,53 +5,52 @@
 A simple training for sheets music reading
 
 """
-
+"""
+Import Contributed packages
+"""
 from expyriment import design, control, io
-from ffunctions import *
-from expyriment.misc import constants
 import random
 import numpy as np
 
+'''
+Custom settings
+'''
 # switch off opengl to avoid screen refesh sync
 control.defaults.open_gl = False
 
-# control.set_develop_mode(True)
+# Fast open close and windowed; default: False
+control.set_develop_mode(True)
 
+'''
+Prepare experiment
+'''
 exp = design.Experiment(name="MusicTraining")
-
 control.initialize(exp)
-#io.DataFile
-options = {"Design": 1,
-           "clef": ["f"],
-           "black_keys": False,
-           "all_notes_once": True,
-           "color": "wb"
-           }
 
-# setupTraining(options)
+from settings import *
 
-# Create one ore more canvas and add a clef and white lines to form the music sheet
+set = Settings([800,600])
+
+
+# Create line parameters
+from functions import *
+lines = createLineParameter(set.y_init, set.line_dist, set.OPTIONS['colour'])
+
 music_sheet = dict()
 
-for clef in options['clef']:
-    music_sheet[clef] = createMusicSheet(clef)
+for clef in set.OPTIONS['clef']:
+    music_sheet[clef] = createMusicSheet(clef, lines, exp.screen,set.settings_canvas['screen_size'], set.OPTIONS['colour'], set.y_init, set.line_dist)
 
-
-lines = createLines()
-for item in lines:
-    line = stimuli.Line(item['start_point'], item['end_point'], item['line_width'], colour=item['colour'])
-
-    for clef in options['clef']:
-        line.plot(music_sheet[clef])
-
-# Create list of Note objects
+# Create list of note objects
 Notes = []
 
 # get notes with certain characteristics
-selection = [x for x in mapping if x['clef'] in options['clef']]
+selection = [x for x in set.mapping if x['clef'] in set.OPTIONS['clef']]
 
 for item in selection:
-    Notes.append(Note(*item.values()))
+    vals = item.values()
+    vals.extend([constants.C_BLACK, set.y_init, set.line_dist])
+    Notes.append(Note(*vals))
 
 random.shuffle(Notes)
 control.start(subject_id=25)
@@ -63,7 +62,10 @@ exp._data.add_variable_names(["Trial", "clef", "key", "Expected", "Type_response
 nRun = len(Notes)
 iRun = 0
 
-for iTrial in range(0, nTrials):
+'''
+Trial function
+'''
+for iTrial in range(0, set.nTrials):
 
     # Clear the screen
     stimuli.BlankScreen().present(clear=True, update=False)
@@ -101,13 +103,15 @@ for iTrial in range(0, nTrials):
         str_mean = str(np.mean(Notes[iRun].RTs))
     else:
         str_mean = ""
-    feedback_text = "Type response: " + f + "\nRT: " + str_rt + "\nMean: " + str_mean + "\nMisses: " + str(Notes[iRun].misses)
-    feedback = stimuli.TextBox(feedback_text, [400, 400], position=[0, (y_init - (15 * line_dist))], text_size=24)
-    feedback.present(clear=False, update=True)
-
 
     # Add feedback to the screen
-    text_mapping = stimuli.TextBox(Notes[iRun].key, [100, 100], position=[0, (y_init - (7 * line_dist))], text_size=24)
+    feedback_text = "Type response: " + f + "\nRT: " + str_rt + "\nMean: " + str_mean + "\nMisses: " + str(Notes[iRun].misses)
+    tbox_feedback = stimuli.TextBox(feedback_text, set.settings_feedback["size_box"],set.settings_feedback["position"],text_size=set.settings_feedback["text_size"])
+    tbox_feedback.present(clear=False, update=True)
+
+
+    # Add correct note to the screen
+    text_mapping = stimuli.TextBox(Notes[iRun].key, set.settings_correctnote["size_box"],set.settings_correctnote["position"],text_size=set.settings_correctnote["text_size"])
     text_mapping.present(clear=False, update=True)
     exp.keyboard.wait(constants.K_SPACE)
 
