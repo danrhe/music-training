@@ -11,7 +11,7 @@ class Note:
 
     """
 
-    def __init__(self, position_factor, clef, key, keyboard, colour, y_init, line_dist):
+    def __init__(self, position_factor, clef, key, keyboard, colour, midline, distance):
 
 
 
@@ -20,13 +20,13 @@ class Note:
         self.key = key
         self.clef = clef
         self.position_factor = position_factor
-        self.position_y = y_init + (position_factor * line_dist / 2)
+        self.position_y = midline + (position_factor * distance / 2)
         self.position = [0, self.position_y]
 
         self.keyboard = keyboard
 
         # standard values for each note
-        self.size = [line_dist, line_dist / 2]
+        self.size = [distance, distance / 2]
         self.stimuli = stimuli.Ellipse(self.size, colour=self.colour, position=self.position)
 
         self.count = 0
@@ -39,8 +39,8 @@ class Note:
             # range (a,b) needs to have a lower b to initiate array with first element
             for line in range (-6, self.position_factor -1, -2):
                 self.help_lines.append({
-                    'start_point': [-1.2 * line_dist, y_init + (line * line_dist / 2)],
-                    'end_point': [1.2 * line_dist, y_init + (line * line_dist / 2)],
+                    'start_point': [-1.2 * distance, midline + (line * distance / 2)],
+                    'end_point': [1.2 * distance, midline + (line * distance / 2)],
                     'line_width': 1,
                     'colour': self.colour,
                 })
@@ -49,8 +49,8 @@ class Note:
                 # range (a,b) needs to have a lower b to initiate array with first element
                 for line in range (6, self.position_factor +1, 2):
                     self.help_lines.append({
-                        'start_point': [-1.2 * line_dist, y_init + (line * line_dist / 2)],
-                        'end_point': [1.2 * line_dist, y_init + (line * line_dist / 2)],
+                        'start_point': [-1.2 * distance, midline + (line * distance / 2)],
+                        'end_point': [1.2 * distance, midline + (line * distance / 2)],
                         'line_width': 2,
                         'colour': self.colour,
                     })
@@ -83,11 +83,6 @@ def createLineParameter(midline, distance, design):
             })
     return lines
 
-def setupTraining(options):
-    """
-    Creates design for music training.
-    Design:
-    """
 
 
 def createMusicSheet(clef_name, lines, settings_field, screen_size, design, y_init, line_dist):
@@ -96,14 +91,14 @@ def createMusicSheet(clef_name, lines, settings_field, screen_size, design, y_in
     """
 
     if design == "bw":
-        colour = (0,0,0)
+        colour = (0, 0, 0)
     else:
-        colour = (255,255,255)
+        colour = (255, 255, 255)
 
     new_sheet = stimuli.Canvas(screen_size, colour=colour)
 
     # Add field for black on white
-    f = 3
+    f = 4
     field_x = settings_field._window_size[0] / f
     field_y = settings_field._window_size[1] / f
     pos_x = 0
