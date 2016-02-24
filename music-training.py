@@ -1,4 +1,4 @@
-from expyriment import design, control,stimuli
+from expyriment import design, control, stimuli, io
 from expyriment.misc import constants
 from functions2 import MusicSheet, Notes, Feedback, CorrectNote
 from settings import Setup
@@ -11,6 +11,7 @@ control.defaults.open_gl = False
 
 # Fast open close and windowed; default: False
 control.set_develop_mode(True)
+io.defaults.outputfile_time_stamp = True
 #control.defaults.initialize_delay = 0
 
 '''

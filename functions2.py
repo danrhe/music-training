@@ -1,7 +1,7 @@
 from expyriment import stimuli
 from expyriment.misc import constants
 import numpy as np
-from settings import mapping
+from keys_info import mapping
 
 class MusicSheet:
     """
