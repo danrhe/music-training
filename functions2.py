@@ -63,12 +63,13 @@ class Note:
         # Assign
         self.colour = colour
         self.key = key
+        self.key_coded = eval("constants.K_" + keyboard)
         self.clef = clef
         self.position_factor = position_factor
         self.position_y = midline + (position_factor * distance / 2)
         self.position = [0, self.position_y]
 
-        self.keyboard = keyboard
+
 
         # standard values for each note
         self.size = [distance, distance / 2]
@@ -76,7 +77,10 @@ class Note:
 
         self.count = 0
         self.RTs = np.array([])
+        self.str_rt = ""
         self.misses = 0
+        self.Feedback_text = ""
+        self.str_mean = ""
 
         # Parameter for help lines outsite five music sheet lines
         self.help_lines = list()
@@ -99,6 +103,25 @@ class Note:
                         'line_width': 2,
                         'colour': self.colour,
                     })
+    def Evaluate_Buttonpress (self, key_pressed, rt):
+
+
+        if  (key_pressed == self.key_coded):
+            self.Feedback_text = "correct"
+            self.RTs = np.append(self.RTs, rt)
+            self.str_rt = str(rt)
+        else:
+            self.Feedback_text = "wrong"
+            self.misses += 1
+            self.str_rt = ""
+
+
+        # Calculate mean RT
+        if len(self.RTs) > 0:
+            self.str_mean = str(np.mean(self.RTs))
+        else:
+            self.str_mean = ""
+
 
 class Notes:
     """Container for notes.
@@ -119,4 +142,33 @@ class Notes:
             item_pos_y = pos_y[item['clef']]
             vals.extend([constants.C_BLACK, item_pos_y, distance])
             self.selection.append(Note(*vals))
+
+
+class Feedback:
+    """
+    Creates Feedback
+    """
+    def __init__(self, note, settings):
+
+        size_box = settings["size_box"]
+        pos_y = settings["position"]
+        text_size = settings["text_size"]
+        self.text = "Type response: " + note.Feedback_text + "\nRT: " + note.str_rt + "\nMean: " + note.str_mean + "\nMisses: " + str(note.misses)
+        self.TextBox = stimuli.TextBox(self.text, size_box, pos_y, text_size=text_size)
+
+    def update_text(self, note):
+        self.text = "Type response: " + note.Feedback_text + "\nRT: " + note.str_rt + "\nMean: " + note.str_mean + "\nMisses: " + str(note.misses)
+        self.TextBox.text(self.TextBox, self.text)
+
+
+class CorrectNote:
+    """
+    Creates music sheet. This is a composite of white canvas field) with clef and horizontal lines
+    """
+    def __init__(self):
+        text = ""
+        #, text, size_box,  pos_y, text_size):
+        # Add correct note to the screen
+        #text_mapping = stimuli.TextBox(Notes.selection[iRun].key, setup.settings_correctnote["size_box"],setup.settings_correctnote["position"],text_size=setup.settings_correctnote["text_size"])
+        #text_mapping.present(clear=False, update=True)
 

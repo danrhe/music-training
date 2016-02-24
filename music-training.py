@@ -1,6 +1,6 @@
 from expyriment import design, control,stimuli
 from expyriment.misc import constants
-from functions2 import MusicSheet, Notes
+from functions2 import MusicSheet, Notes, Feedback
 from settings import Setup
 import random
 '''
@@ -51,7 +51,7 @@ stimuli.BlankScreen().present(clear=True, update=False)
 musicsheet[Notes.selection[iRun].clef].Field.present(clear=False, update=True)
 
 # Wait for button press
-key, rt = exp.keyboard.wait(constants.K_ALL_LETTERS)
+#key, rt = exp.keyboard.wait(constants.K_ALL_LETTERS)
 
 # Add the note to the sheet; if Note needs extra help lines they need to be added first
 if len(Notes.selection[iRun].help_lines) > 0:
@@ -65,5 +65,15 @@ Notes.selection[iRun].stimuli.present(clear=False, update=True)
 
 # Wait for button press
 key, rt = exp.keyboard.wait(constants.K_ALL_LETTERS)
+
+# Evaluate button press
+Notes.selection[iRun].Evaluate_Buttonpress(key, rt)
+
+# Add feedback to the screen
+fb = Feedback(note=Notes.selection[iRun], settings=setup.settings_feedback)
+fb.TextBox.present(clear=False, update=True)
+
+exp.keyboard.wait(constants.K_SPACE)
+
 
 control.end(goodbye_text='Thats it', goodbye_delay=1000)

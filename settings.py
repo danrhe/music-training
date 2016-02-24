@@ -24,21 +24,7 @@ lines = createLineParameter(set.y_init, set.line_dist, set.OPTIONS['colour'])
 
 
 
-        self.settings_feedback = {
-            "size_box": [self.settings_canvas['screen_size'][0] /4, self.settings_canvas['screen_size'][1] /4],
-            "position": [0, 0 - (self.settings_canvas['screen_size'][1] /4)],
-            "text_size": 24,
-            }
 
-        self.settings_correctnote = {
-            "size_box": [self.settings_canvas['screen_size'][0] /4, self.settings_canvas['screen_size'][1] /4],
-            "position": [0, 0 - (self.settings_canvas['screen_size'][1] /2)],
-            "text_size": 24,
-        }
-
-        # position of the stimuli relative to screen size
-        self.y_init = self.settings_canvas['screen_size'][1] / 7
-        self.line_dist = self.settings_canvas['screen_size'][1] / 100
 
 mapping = [
     {'key': 'a2',
@@ -232,4 +218,18 @@ class Setup:
             }
         self.distance = screen_size[0] / 60
 
+        self.settings_feedback = {
+            "size_box": [screen_size[0] /4, screen_size[1] /4],
+            "position": [0, 0 - (screen_size[1] /4)],
+            "text_size": 24,
+            }
 
+        self.settings_correctnote = {
+            "size_box": [screen_size[0] /4, screen_size[1] /4],
+            "position": [0, 0 ],
+            "text_size": 24,
+            }
+
+        # position of the stimuli relative to screen size
+        self.y_init = screen_size[1] / 7
+        self.line_dist = screen_size[1] / 100

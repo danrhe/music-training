@@ -13,8 +13,6 @@ class Note:
 
     def __init__(self, position_factor, clef, key, keyboard, colour, midline, distance):
 
-
-
         # Assign
         self.colour = colour
         self.key = key
@@ -33,7 +31,7 @@ class Note:
         self.RTs = np.array([])
         self.misses = 0
 
-        # Parameter for help lines outsite five music sheet lines
+        # Parameter for help lines outside five music sheet lines
         self.help_lines = list()
         if self.position_factor <= -6:
             # range (a,b) needs to have a lower b to initiate array with first element
