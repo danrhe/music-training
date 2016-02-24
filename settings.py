@@ -18,7 +18,7 @@ class Setup:
     lines = createLineParameter(set.y_init, set.line_dist, set.OPTIONS['colour'])
     """
     def __init__(self, screen_size):
-        self.nTrials = 2
+        self.nTrials = 50
         self.clef = ["g", "f"]
         self.black_keys = False
         self.all_notes_once = True

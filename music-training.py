@@ -31,7 +31,7 @@ for clef in setup.clef:
 Notes = Notes(setup.clef, setup.pos_y, setup.distance)
 
 #Randomize order of notes
-random.shuffle(Notes.selection)
+random.shuffle(Notes)
 
 
 '''
@@ -52,36 +52,36 @@ for iTrial in range(0, setup.nTrials):
 
     stimuli.BlankScreen().present(clear=True, update=False)
 
-    musicsheet[Notes.selection[iRun].clef].Field.present(clear=False, update=True)
+    musicsheet[Notes[iRun].clef].Field.present(clear=False, update=True)
 
     # Add the note to the sheet; if Note needs extra help lines they need to be added first
-    if len(Notes.selection[iRun].help_lines) > 0:
-        for hline in Notes.selection[iRun].help_lines:
+    if len(Notes[iRun].help_lines) > 0:
+        for hline in Notes[iRun].help_lines:
             vals = hline.values()
 
             help_line = stimuli.Line(hline['start_point'], hline['end_point'], hline['line_width'], colour=hline['colour'])
             help_line.present(clear=False, update=False)
 
-    Notes.selection[iRun].stimuli.present(clear=False, update=True)
+    Notes[iRun].stimuli.present(clear=False, update=True)
 
     # Wait for button press
     key, rt = exp.keyboard.wait(constants.K_ALL_LETTERS)
 
     # Evaluate button press
-    Notes.selection[iRun].Evaluate_Buttonpress(key, rt)
+    Notes[iRun].Evaluate_Buttonpress(key, rt)
 
     # Add feedback and correct note to the screen
-    fb = Feedback(note=Notes.selection[iRun], settings=setup.settings_feedback)
-    cn = CorrectNote(note=Notes.selection[iRun], settings=setup.settings_correctnote)
+    fb = Feedback(note=Notes[iRun], settings=setup.settings_feedback)
+    cn = CorrectNote(note=Notes[iRun], settings=setup.settings_correctnote)
 
     fb.TextBox.present(clear=False, update=False)
     cn.CorrectNote.present(clear=False, update=True)
 
     exp.keyboard.wait(constants.K_SPACE)
 
-    exp._data.add([iTrial, Notes.selection[iRun].clef, Notes.selection[iRun].key, Notes.selection[iRun].key_coded, Notes.selection[iRun].Feedback_text, rt])
+    exp._data.add([iTrial, Notes[iRun].clef, Notes[iRun].key, Notes[iRun].key_coded, Notes[iRun].Feedback_text, rt])
 
-    if iRun < (len(Notes.selection)-1):
+    if iRun < (len(Notes)-1):
         iRun += 1
     else:
         random.shuffle(Notes)

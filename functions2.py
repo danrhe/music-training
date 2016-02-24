@@ -122,7 +122,7 @@ class Note:
             self.str_mean = ""
 
 
-class Notes:
+class Notes(list):
     """Container for notes.
 
         Parameters
@@ -132,7 +132,7 @@ class Notes:
         distance: int, distance between lines
         """
     def __init__(self, clef, pos_y, distance):
-        self.selection = list()
+        self = list()
 
         selection = [x for x in mapping if x['clef'] in clef]
 
@@ -140,7 +140,7 @@ class Notes:
             vals = item.values()
             item_pos_y = pos_y[item['clef']]
             vals.extend([constants.C_BLACK, item_pos_y, distance])
-            self.selection.append(Note(*vals))
+            self.append(Note(*vals))
 
 
 class Feedback:
