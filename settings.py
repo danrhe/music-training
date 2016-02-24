@@ -10,21 +10,6 @@ __version__ = '0.1.0'
 __date__ = 'Tue Feb 18 10:14:58 2016 +0200'
 
 
-class Settings:
-    """A class implementing all settings.
-    @:param screen_size list with screen resolution
-# Create line parameters
-lines = createLineParameter(set.y_init, set.line_dist, set.OPTIONS['colour'])
-
-    """
-
-    def __init__(self, screen_size):
-
-        nTrials = 100
-
-
-
-
 
 mapping = [
     {'key': 'a2',
@@ -208,6 +193,7 @@ class Setup:
     lines = createLineParameter(set.y_init, set.line_dist, set.OPTIONS['colour'])
     """
     def __init__(self, screen_size):
+        self.nTrials = 10
         self.clef = ["g", "f"]
         self.black_keys = False
         self.all_notes_once = True
@@ -226,8 +212,8 @@ class Setup:
 
         self.settings_correctnote = {
             "size_box": [screen_size[0] /4, screen_size[1] /4],
-            "position": [0, 0 ],
-            "text_size": 24,
+            "position": [0, 0],
+            "text_size": 34,
             }
 
         # position of the stimuli relative to screen size

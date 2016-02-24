@@ -105,7 +105,6 @@ class Note:
                     })
     def Evaluate_Buttonpress (self, key_pressed, rt):
 
-
         if  (key_pressed == self.key_coded):
             self.Feedback_text = "correct"
             self.RTs = np.append(self.RTs, rt)
@@ -156,19 +155,16 @@ class Feedback:
         self.text = "Type response: " + note.Feedback_text + "\nRT: " + note.str_rt + "\nMean: " + note.str_mean + "\nMisses: " + str(note.misses)
         self.TextBox = stimuli.TextBox(self.text, size_box, pos_y, text_size=text_size)
 
-    def update_text(self, note):
-        self.text = "Type response: " + note.Feedback_text + "\nRT: " + note.str_rt + "\nMean: " + note.str_mean + "\nMisses: " + str(note.misses)
-        self.TextBox.text(self.TextBox, self.text)
-
 
 class CorrectNote:
     """
     Creates music sheet. This is a composite of white canvas field) with clef and horizontal lines
     """
-    def __init__(self):
-        text = ""
-        #, text, size_box,  pos_y, text_size):
-        # Add correct note to the screen
-        #text_mapping = stimuli.TextBox(Notes.selection[iRun].key, setup.settings_correctnote["size_box"],setup.settings_correctnote["position"],text_size=setup.settings_correctnote["text_size"])
-        #text_mapping.present(clear=False, update=True)
+    def __init__(self, note, settings):
+        size_box = settings["size_box"]
+        pos_y = settings["position"]
+        text_size = settings["text_size"]
+
+        self.CorrectNote = stimuli.TextBox(note.key, size_box, pos_y, text_size=text_size)
+
 
