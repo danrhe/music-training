@@ -1,3 +1,4 @@
+from keys_info import mapping
 """
 Music Training Settings.
 
@@ -32,17 +33,18 @@ class Setup:
 
         self.settings_feedback = {
             "size_box": [screen_size[0] /4, screen_size[1] /4],
-            "position": [0, 0 - (screen_size[1] /4)],
+            "position": [-200, 0 - (screen_size[1] /4)],
             "text_size": 24,
             }
 
         self.settings_correctnote = {
             "size_box": [screen_size[0] /4, screen_size[1] /4],
-            "position": [0, 0],
-            "text_size": 34,
+            "position": [0, -200],
+            "text_size": 40,
             }
 
         # position of the stimuli relative to screen size
         self.y_init = screen_size[1] / 7
         self.line_dist = screen_size[1] / 100
 
+        self.selection = [x for x in mapping if x['clef'] in self.clef]

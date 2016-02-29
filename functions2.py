@@ -20,7 +20,7 @@ class MusicSheet:
         self.field_position = [self.pos_x, self.pos_y]
 
         # Size of field is 1 / factor of whole screen
-        factor = 4
+        factor = 3.5
         field_x = screen_size[0] / 2
         field_y = screen_size[1] / factor
         self.field_size = [field_x, field_y]
@@ -55,18 +55,30 @@ class MusicSheet:
 
 class Note:
     """
-    :param: position on screen, name of the note, associated keyboard key, color
+    Implements Note stimulus as expyriment ellipse
+    :parameter:
+    paradict: dictionary with all stimulus parameters such as key, position_factor, keyboard, cleft, white_key and keyboard pos (see key_info.py)
+    midline: optional [int] y-axis offset
+    distance: optional [int] distance between lines
+        {'key': 'c3',
+     'position_factor': 8,
+     'keyboard': 'c',
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 14
+    position on screen, name of the note, associated keyboard key, color
+    key_name, constants.C_BLACK, item_pos_y, distance
 
     """
-    def __init__(self, position_factor, clef, key, keyboard, colour, midline, distance):
+    def __init__(self, paradict, midline=100, distance=30):
 
         # Assign
-        self.colour = colour
-        self.key = key
-        self.key_coded = eval("constants.K_" + keyboard)
-        self.clef = clef
-        self.position_factor = position_factor
-        self.position_y = midline + (position_factor * distance / 2)
+        self.colour = constants.C_BLACK
+        self.key = paradict['key']
+        self.key_coded = eval("constants.K_" + paradict['keyboard'])
+        self.clef = paradict['clef']
+        self.position_factor = paradict['position_factor']
+        self.position_y = midline + (self.position_factor * distance / 2)
         self.position = [0, self.position_y]
 
 
@@ -105,7 +117,7 @@ class Note:
                     })
     def Evaluate_Buttonpress (self, key_pressed, rt):
 
-        if  (key_pressed == self.key_coded):
+        if key_pressed == self.key_coded:
             self.Feedback_text = "correct"
             self.RTs = np.append(self.RTs, rt)
             self.str_rt = str(rt)
@@ -127,20 +139,16 @@ class Notes(list):
 
         Parameters
         ----------
-        clef : [str], list of strings, defining the scope of the training (e.g. only f-clef notes)
+        selection : [str], list of strings, defining the scope of the training (e.g. only f-clef notes)
         pos_y : {int, int}, tuple defining the midline position on the y-axis for each clef
         distance: int, distance between lines
         """
-    def __init__(self, clef, pos_y, distance):
-        self = list()
+    def appendnotes(self, selection, pos_y, distance):
 
-        selection = [x for x in mapping if x['clef'] in clef]
-
-        for item in selection:
-            vals = item.values()
-            item_pos_y = pos_y[item['clef']]
-            vals.extend([constants.C_BLACK, item_pos_y, distance])
-            self.append(Note(*vals))
+        for note_info in selection:
+            midline = pos_y[note_info['clef']]
+            note = Note(note_info, midline, distance)
+            self.append(note)
 
 
 class Feedback:

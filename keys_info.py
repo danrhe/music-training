@@ -6,174 +6,435 @@ This module contains an array of dictionaries containing music note mappings.
 """
 
 mapping = [
+    {'key': 'c3',
+     'position_factor': 8,
+     'keyboard': 'c',
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 14
+     },
+    {'key': 'b2',
+     'position_factor': 7,
+     'keyboard': 'b',
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 13
+     },
+    {'key': 'a#',
+     'position_factor': 6,
+     'keyboard': 'a',
+     'clef': 'g',
+     'white_key': False,
+     'keyboard_pos': 12.5
+     },
     {'key': 'a2',
      'position_factor': 6,
      'keyboard': 'a',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 12
+     },
+    {'key': 'g2#',
+     'position_factor': 5,
+     'keyboard': 'g',
+     'clef': 'g',
+     'white_key': False,
+     'keyboard_pos': 11.5
      },
     {'key': 'g2',
      'position_factor': 5,
      'keyboard': 'g',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 11
+     },
+    {'key': 'f2#',
+     'position_factor': 4,
+     'keyboard': 'f',
+     'clef': 'g',
+     'white_key': False,
+     'keyboard_pos': 10.5
      },
     {'key': 'f2',
      'position_factor': 4,
      'keyboard': 'f',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 10
      },
     {'key': 'e2',
      'position_factor': 3,
      'keyboard': 'e',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 9
+     },
+    {'key': 'd2#',
+     'position_factor': 2,
+     'keyboard': 'd',
+     'clef': 'g',
+     'white_key': False,
+     'keyboard_pos': 8.5
      },
     {'key': 'd2',
      'position_factor': 2,
      'keyboard': 'd',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 8
+     },
+    {'key': 'c2#',
+     'position_factor': 1,
+     'keyboard': 'c',
+     'clef': 'g',
+     'white_key': False,
+     'keyboard_pos': 7.5
      },
     {'key': 'c2',
      'position_factor': 1,
      'keyboard': 'c',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 7
      },
     {'key': 'b1',
      'position_factor': 0,
      'keyboard': 'b',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 6
+     },
+    {'key': 'a1#',
+     'position_factor': -1,
+     'keyboard': 'a',
+     'clef': 'g',
+     'white_key': False,
+     'keyboard_pos': 5.5
      },
     {'key': 'a1',
      'position_factor': -1,
      'keyboard': 'a',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 5
+     },
+    {'key': 'g1#',
+     'position_factor': -2,
+     'keyboard': 'g',
+     'clef': 'g',
+     'white_key': False,
+     'keyboard_pos': 4.5
      },
     {'key': 'g1',
      'position_factor': -2,
      'keyboard': 'g',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 4
+     },
+    {'key': 'f1#',
+     'position_factor': -3,
+     'keyboard': 'f',
+     'clef': 'g',
+     'white_key': False,
+     'keyboard_pos': 3.5
      },
     {'key': 'f1',
      'position_factor': -3,
      'keyboard': 'f',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 3
      },
     {'key': 'e1',
      'position_factor': -4,
      'keyboard': 'e',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 2
+     },
+    {'key': 'd1#',
+     'position_factor': -5,
+     'keyboard': 'd',
+     'clef': 'g',
+     'white_key': False,
+     'keyboard_pos': 1.5
      },
     {'key': 'd1',
      'position_factor': -5,
      'keyboard': 'd',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 1
+     },
+    {'key': 'c1#',
+     'position_factor': -6,
+     'keyboard': 'c',
+     'clef': 'g',
+     'white_key': False,
+     'keyboard_pos': 0.5
      },
     {'key': 'c1',
      'position_factor': -6,
      'keyboard': 'c',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': 0
      },
     {'key': 'b',
      'position_factor': -7,
      'keyboard': 'b',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': -1
+     },
+    {'key': 'a#',
+     'position_factor': -8,
+     'keyboard': 'a',
+     'clef': 'g',
+     'white_key': False,
+     'keyboard_pos': -1.5
      },
     {'key': 'a',
      'position_factor': -8,
      'keyboard': 'a',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': -2
+     },
+    {'key': 'g#',
+     'position_factor': -9,
+     'keyboard': 'g',
+     'clef': 'g',
+     'white_key': False,
+     'keyboard_pos': -2.5
      },
     {'key': 'g',
      'position_factor': -9,
      'keyboard': 'g',
-     'clef': 'g'
+     'clef': 'g',
+     'white_key': True,
+     'keyboard_pos': -3
      },
-    {'key': 'f',
+    {'key': 'f1#',
      'position_factor': 9,
      'keyboard': 'f',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': False,
+     'keyboard_pos': 3.5
      },
-    {'key': 'e',
+    {'key': 'f1',
+     'position_factor': 9,
+     'keyboard': 'f',
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': 3
+     },
+    {'key': 'e1',
      'position_factor': 8,
      'keyboard': 'e',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': 2
      },
-    {'key': 'd',
+    {'key': 'd1#',
      'position_factor': 7,
      'keyboard': 'd',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': False,
+     'keyboard_pos': 1.5
      },
-    {'key': 'c',
+    {'key': 'd1',
+     'position_factor': 7,
+     'keyboard': 'd',
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': 1
+     },
+    {'key': 'c1#',
      'position_factor': 6,
      'keyboard': 'c',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': False,
+     'keyboard_pos': 0.5
+     },
+    {'key': 'c1',
+     'position_factor': 6,
+     'keyboard': 'c',
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': 0
      },
     {'key': 'b',
      'position_factor': 5,
      'keyboard': 'b',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': -1
      },
     {'key': 'a',
      'position_factor': 4,
      'keyboard': 'a',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': -2
+     },
+    {'key': 'a#',
+     'position_factor': 4,
+     'keyboard': 'a',
+     'clef': 'f',
+     'white_key': False,
+     'keyboard_pos': -1.5
      },
     {'key': 'g',
      'position_factor': 3,
      'keyboard': 'g',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': -3
+     },
+    {'key': 'g#',
+     'position_factor': 3,
+     'keyboard': 'g',
+     'clef': 'f',
+     'white_key': False,
+     'keyboard_pos': -2.5
      },
     {'key': 'f',
      'position_factor': 2,
      'keyboard': 'f',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': -4
+     },
+    {'key': 'f#',
+     'position_factor': 2,
+     'keyboard': 'f',
+     'clef': 'f',
+     'white_key': False,
+     'keyboard_pos': -3.5
      },
     {'key': 'e',
      'position_factor': 1,
      'keyboard': 'e',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': -5
+     },
+    {'key': 'd#',
+     'position_factor': 0,
+     'keyboard': 'd',
+     'clef': 'f',
+     'white_key': False,
+     'keyboard_pos': -5.5
      },
     {'key': 'd',
      'position_factor': 0,
      'keyboard': 'd',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': -6
+     },
+    {'key': 'c#',
+     'position_factor': -1,
+     'keyboard': 'c',
+     'clef': 'f',
+     'white_key': False,
+     'keyboard_pos': -6.5
      },
     {'key': 'c',
      'position_factor': -1,
      'keyboard': 'c',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': -7
      },
     {'key': 'B',
      'position_factor': -2,
      'keyboard': 'b',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': -8
+     },
+    {'key': 'A#',
+     'position_factor': -3,
+     'keyboard': 'a',
+     'clef': 'f',
+     'white_key': False,
+     'keyboard_pos': -8.5
      },
     {'key': 'A',
      'position_factor': -3,
      'keyboard': 'a',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': -9
+     },
+    {'key': 'G#',
+     'position_factor': -4,
+     'keyboard': 'g',
+     'clef': 'f',
+     'white_key': False,
+     'keyboard_pos': -9.5
      },
     {'key': 'G',
      'position_factor': -4,
      'keyboard': 'g',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': -10
+     },
+     {'key': 'F#',
+     'position_factor': -5,
+     'keyboard': 'f',
+     'clef': 'f',
+     'white_key': False,
+     'keyboard_pos': -10.5
      },
     {'key': 'F',
      'position_factor': -5,
      'keyboard': 'f',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': -11
      },
     {'key': 'E',
      'position_factor': -6,
      'keyboard': 'e',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': -12
+     },
+    {'key': 'D#',
+     'position_factor': -7,
+     'keyboard': 'd',
+     'clef': 'f',
+     'white_key': False,
+     'keyboard_pos': -12.5
      },
     {'key': 'D',
      'position_factor': -7,
      'keyboard': 'd',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': -13
+     },
+    {'key': 'C#',
+     'position_factor': -8,
+     'keyboard': 'c',
+     'clef': 'f',
+     'white_key': False,
+     'keyboard_pos': -13.5
      },
     {'key': 'C',
      'position_factor': -8,
      'keyboard': 'c',
-     'clef': 'f'
+     'clef': 'f',
+     'white_key': True,
+     'keyboard_pos': -14
      },
+
 ]
+
+
+c = list()

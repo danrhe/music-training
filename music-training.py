@@ -1,12 +1,13 @@
 from expyriment import design, control, stimuli, io
 from expyriment.misc import constants
-from functions2 import MusicSheet, Notes, Feedback, CorrectNote
+from functions2 import MusicSheet, Notes, Feedback
 from settings import Setup
+from keyboard import PianoKeyboard, findKey, printColoredKey
 import random
 '''
 Custom settings
 '''
-# switch off opengl to avoid screen refesh sync
+# switch off opengl to avoid screen refresh sync
 control.defaults.open_gl = False
 
 # Fast open close and windowed; default: False
@@ -28,7 +29,12 @@ for clef in setup.clef:
     musicsheet[clef] = MusicSheet(screen_size=exp.screen.size, pos_y=setup.pos_y, clef_name=clef)
 
 # Create list of note objects
-Notes = Notes(setup.clef, setup.pos_y, setup.distance)
+Notes = Notes()
+Notes.appendnotes(setup.selection, setup.pos_y, setup.distance)
+
+# Create Piano keyboard on screen
+piano = PianoKeyboard(exp.screen.size)
+
 
 #Randomize order of notes
 random.shuffle(Notes)
@@ -51,6 +57,7 @@ Trial function
 for iTrial in range(0, setup.nTrials):
 
     stimuli.BlankScreen().present(clear=True, update=False)
+    piano.Canvas.present(clear=False, update=False)
 
     musicsheet[Notes[iRun].clef].Field.present(clear=False, update=True)
 
@@ -68,14 +75,14 @@ for iTrial in range(0, setup.nTrials):
     key, rt = exp.keyboard.wait(constants.K_ALL_LETTERS)
 
     # Evaluate button press
+    index = findKey(piano.keys, Notes[iRun].key)
     Notes[iRun].Evaluate_Buttonpress(key, rt)
 
-    # Add feedback and correct note to the screen
+    # Add feedback about performance and correct key to the screen
     fb = Feedback(note=Notes[iRun], settings=setup.settings_feedback)
-    cn = CorrectNote(note=Notes[iRun], settings=setup.settings_correctnote)
-
     fb.TextBox.present(clear=False, update=False)
-    cn.CorrectNote.present(clear=False, update=True)
+
+    printColoredKey(piano.keys, index)
 
     exp.keyboard.wait(constants.K_SPACE)
 
