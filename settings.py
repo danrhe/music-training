@@ -48,3 +48,5 @@ class Setup:
         self.line_dist = screen_size[1] / 100
 
         self.selection = [x for x in mapping if x['clef'] in self.clef]
+        #self.selection = [x for x in mapping if x['key'] is 'C']
+

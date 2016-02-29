@@ -103,26 +103,23 @@ def printColoredKey(keys, index):
 
     """
 
-    ck = keys[index].Text.present(clear=False, update=False)
 
     ck2 = keys[index].KeyGreen.present(clear=False, update=False)
 
     if keys[index].white_key:
         if index == 0:
-            ck1 = keys[index+1].Key.present(clear=False, update=True)
-        elif index == len(keys):
-            ck3 = keys[index-1].Key.present(clear=False, update=True)
+            ck1 = keys[index+1].Key.present(clear=False, update=False)
+        elif index == len(keys)-1:
+            ck3 = keys[index-1].Key.present(clear=False, update=False)
         else:
             ck1 = keys[index+1]
             ck3 = keys[index-1]
-            if ck1.white_key is False and ck3.white_key is False:
+            if ck1.white_key is False:
                 ck1.Key.present(clear=False, update=False)
-                ck3.Key.present(clear=False, update=True)
-            elif ck1.white_key is False and ck3.white_key is True:
-                ck1.Key.present(clear=False, update=True)
-            else:
-                ck3.Key.present(clear=False, update=True)
+            if ck3.white_key is False:
+                ck3.Key.present(clear=False, update=False)
 
+    ck = keys[index].Text.present(clear=False, update=True)
 
 
     a = 2

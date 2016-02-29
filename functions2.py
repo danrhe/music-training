@@ -115,6 +115,7 @@ class Note:
                         'line_width': 2,
                         'colour': self.colour,
                     })
+
     def Evaluate_Buttonpress (self, key_pressed, rt):
 
         if key_pressed == self.key_coded:
