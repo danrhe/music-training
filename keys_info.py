@@ -20,7 +20,7 @@ mapping = [
      'white_key': True,
      'keyboard_pos': 13
      },
-    {'key': 'a#',
+    {'key': 'a2#',
      'position_factor': 6,
      'keyboard': 'a',
      'clef': 'g',

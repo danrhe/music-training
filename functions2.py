@@ -121,7 +121,8 @@ class Note:
         if key_pressed == self.key_coded:
             self.Feedback_text = "correct"
             self.RTs = np.append(self.RTs, rt)
-            self.str_rt = str(rt)
+            self.str_rt = str("%.1f" % rt)
+
         else:
             self.Feedback_text = "wrong"
             self.misses += 1
@@ -130,7 +131,7 @@ class Note:
 
         # Calculate mean RT
         if len(self.RTs) > 0:
-            self.str_mean = str(np.mean(self.RTs))
+            self.str_mean = str("%.1f" % np.mean(self.RTs))
         else:
             self.str_mean = ""
 
