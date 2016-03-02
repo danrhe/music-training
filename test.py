@@ -30,7 +30,7 @@ rect.present(clear=False, update=True)
 mouse = io.Mouse()
 mouse.show_cursor()
 
-for i in range(0, 10000):
+for i in range(0, 100):
 
     position = rect.position
     size = rect.size
@@ -59,7 +59,6 @@ for i in range(0, 10000):
 
 
 # Wait for button press
-key, rt = exp.keyboard.wait(constants.K_ALL_LETTERS)
-
+event_id, move, pos, rt = mouse.wait_event(wait_button=True, wait_motion=False,wait_for_buttonup=False)
 
 control.end(goodbye_text='Thats it', goodbye_delay=1000)
