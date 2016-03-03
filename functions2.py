@@ -116,13 +116,13 @@ class Note:
                         'colour': self.colour,
                     })
 
-    def Evaluate_Buttonpress (self, key_pressed, rt):
+    def Evaluate_Buttonpress (self, key_pressed, rt, mp):
 
         if key_pressed == self.key_coded:
-            self.Feedback_text = "correct"
-            self.RTs = np.append(self.RTs, rt)
-            self.str_rt = str("%.1f" % rt)
-
+            if mouseIsInside(self.size, self.position, mp):
+                self.Feedback_text = "correct"
+                self.RTs = np.append(self.RTs, rt)
+                self.str_rt = str("%.1f" % rt)
         else:
             self.Feedback_text = "wrong"
             self.misses += 1
@@ -178,3 +178,18 @@ class CorrectNote:
         self.CorrectNote = stimuli.TextBox(note.key, size_box, pos_y, text_size=text_size)
 
 
+def mouseIsInside (key_size, key_position, mouse_position):
+
+    right = (key_size[0] / 2) + key_position[0]
+    left = right - key_size[0]
+    top = (key_size[1] / 2) + key_position[1]
+    bottom = top - key_size[1]
+
+    mp = mouse_position
+
+    if mp[0] <= right and mp[0] >=  left and mp[1] <= top and mp[1] >= bottom:
+        t = 'TRUE'
+    else:
+        t = 'FALSE'
+
+    return t
