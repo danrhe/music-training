@@ -34,7 +34,7 @@ for i in range(0, 1000):
 
     t = mouseIsInside(rect.size, rect.position, mouse.position)
 
-    text = stimuli.TextLine(t, [0,-100], text_colour=[200,200,0])
+    text = stimuli.TextLine(str(t), [0,-100], text_colour=[200,200,0])
 
 
     text.present(clear=True, update=False )

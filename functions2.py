@@ -116,13 +116,13 @@ class Note:
                         'colour': self.colour,
                     })
 
-    def Evaluate_Buttonpress (self, key_pressed, rt, mp):
+    def Evaluate_Buttonpress (self, key_pressed, rt):
 
         if key_pressed == self.key_coded:
-            if mouseIsInside(self.size, self.position, mp):
-                self.Feedback_text = "correct"
-                self.RTs = np.append(self.RTs, rt)
-                self.str_rt = str("%.1f" % rt)
+
+            self.Feedback_text = "correct"
+            self.RTs = np.append(self.RTs, rt)
+            self.str_rt = str("%.1f" % rt)
         else:
             self.Feedback_text = "wrong"
             self.misses += 1
@@ -188,8 +188,8 @@ def mouseIsInside (key_size, key_position, mouse_position):
     mp = mouse_position
 
     if mp[0] <= right and mp[0] >=  left and mp[1] <= top and mp[1] >= bottom:
-        t = 'TRUE'
+        t = True
     else:
-        t = 'FALSE'
+        t = False
 
     return t

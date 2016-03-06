@@ -87,11 +87,15 @@ for iTrial in range(0, setup.nTrials):
     index = findKey(piano.keys, Notes[iRun].key)
     Notes[iRun].Evaluate_Buttonpress(key, rt)
 
-    # Evaluate mouse position
-
     # Add feedback about performance and correct key to the screen
     fb = Feedback(note=Notes[iRun], settings=setup.settings_feedback)
     fb.TextBox.present(clear=False, update=False)
+
+    # Evaluate mouse position
+    piano.evalMouse(index, mp)
+
+    text = stimuli.TextLine(str(piano.MouseBool), [0,-100], text_colour=[200,200,0])
+    text.present(clear=True, update=False)
 
     printColoredKey(piano.keys, index)
 
