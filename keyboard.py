@@ -1,6 +1,7 @@
 from expyriment import stimuli
 from expyriment.misc import constants
 from keys_info import mapping
+from functions2 import mouseIsInside
 
 
 class PianoKey:
@@ -61,7 +62,7 @@ class PianoKeyboard:
     def __init__(self, screen_size, position=[0, 0]):
         self.keys = list()
         self.Canvas = stimuli.Canvas([screen_size[0]-100, 200], position, colour=[30, 30, 30])
-
+        self.MouseBool = False
         # fill list of piano keys according to order of appearance in key_info.py
         for iKey in mapping:
             k = PianoKey(iKey)
@@ -78,6 +79,27 @@ class PianoKeyboard:
             iKey.Key.plot(self.Canvas)
 
 
+    def evalMouse(self, index, mp):
+
+        test_self = mouseIsInside(self.keys[index].Key.size, self.keys[index].Key.position, mp)
+        test_1 = False
+        test_2 = False
+
+        if self.keys[index].white_key:
+            if index == 0:
+                test_1 = mouseIsInside(self.keys[index+1].Key.size, self.keys[index+1].Key.position, mp)
+                test_2 = False
+            elif index == len(self.keys)-1:
+                test_1 = False
+                test_2 = mouseIsInside(self.keys[index-1].Key.size, self.keys[index+1].Key.position, mp)
+            else:
+                test_1 = mouseIsInside(self.keys[index+1].Key.size, self.keys[index+1].Key.position, mp)
+                test_2 = mouseIsInside(self.keys[index-1].Key.size, self.keys[index+1].Key.position, mp)
+
+        if test_self is True and (test_1 is False and test_2 is False):
+            self.MouseBool = True
+        else:
+            self.MouseBool = False
 
 
 
@@ -121,6 +143,4 @@ def printColoredKey(keys, index):
 
     ck = keys[index].Text.present(clear=False, update=True)
 
-
-    a = 2
 

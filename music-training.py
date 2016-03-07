@@ -22,7 +22,7 @@ Prepare Training
 exp = design.Experiment(name="MusicTraining")
 control.initialize(exp)
 setup = Setup(screen_size=exp.screen.size)
-
+exp.mouse.show_cursor()
 # Create list of musicsheet objects
 musicsheet = dict()
 for clef in setup.clef:
@@ -80,6 +80,8 @@ for iTrial in range(0, setup.nTrials):
 
     # Wait for button press
     key, rt = exp.keyboard.wait(constants.K_ALL_LETTERS)
+    mp = exp.mouse.position
+    #event_id, pos, rt = exp.mouse.wait_press()
 
     # Evaluate button press
     index = findKey(piano.keys, Notes[iRun].key)
@@ -88,6 +90,12 @@ for iTrial in range(0, setup.nTrials):
     # Add feedback about performance and correct key to the screen
     fb = Feedback(note=Notes[iRun], settings=setup.settings_feedback)
     fb.TextBox.present(clear=False, update=False)
+
+    # Evaluate mouse position
+    piano.evalMouse(index, mp)
+
+    text = stimuli.TextLine(str(piano.MouseBool), [0,-100], text_colour=[200,200,0])
+    text.present(clear=True, update=False)
 
     printColoredKey(piano.keys, index)
 
