@@ -80,21 +80,22 @@ class PianoKeyboard:
 
 
     def evalMouse(self, index, mp):
-
+        # Index goes from right to left
         test_self = mouseIsInside(self.keys[index].Key.size, self.keys[index].Key.position, mp)
         test_1 = False
         test_2 = False
 
         if self.keys[index].white_key:
+            # Most right key
             if index == 0:
                 test_1 = mouseIsInside(self.keys[index+1].Key.size, self.keys[index+1].Key.position, mp)
                 test_2 = False
             elif index == len(self.keys)-1:
                 test_1 = False
-                test_2 = mouseIsInside(self.keys[index-1].Key.size, self.keys[index+1].Key.position, mp)
+                test_2 = mouseIsInside(self.keys[index-1].Key.size, self.keys[index-1].Key.position, mp)
             else:
                 test_1 = mouseIsInside(self.keys[index+1].Key.size, self.keys[index+1].Key.position, mp)
-                test_2 = mouseIsInside(self.keys[index-1].Key.size, self.keys[index+1].Key.position, mp)
+                test_2 = mouseIsInside(self.keys[index-1].Key.size, self.keys[index-1].Key.position, mp)
 
         if test_self is True and (test_1 is False and test_2 is False):
             self.MouseBool = True

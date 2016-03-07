@@ -116,13 +116,15 @@ class Note:
                         'colour': self.colour,
                     })
 
-    def Evaluate_Buttonpress (self, key_pressed, rt):
+    def Evaluate_Buttonpress(self, key_pressed, rt, mouse):
 
-        if key_pressed == self.key_coded:
+        if mouse:
 
-            self.Feedback_text = "correct"
-            self.RTs = np.append(self.RTs, rt)
-            self.str_rt = str("%.1f" % rt)
+            if key_pressed == constants.K_SPACE:
+
+                self.Feedback_text = "correct"
+                self.RTs = np.append(self.RTs, rt)
+                self.str_rt = str("%.1f" % rt)
         else:
             self.Feedback_text = "wrong"
             self.misses += 1
