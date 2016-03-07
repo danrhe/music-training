@@ -1,7 +1,6 @@
 from expyriment import stimuli
 from expyriment.misc import constants
 import numpy as np
-from keys_info import mapping
 
 class MusicSheet:
     """
@@ -57,7 +56,7 @@ class Note:
     """
     Implements Note stimulus as expyriment ellipse
     :parameter:
-    paradict: dictionary with all stimulus parameters such as key, position_factor, keyboard, cleft, white_key and keyboard pos (see key_info.py)
+    paradict: dictionary with all stimulus parameters such as key, position_factor, keyboard, cleft, white_key and keyboard pos (see note_info.py)
     midline: optional [int] y-axis offset
     distance: optional [int] distance between lines
         {'key': 'c3',
@@ -73,6 +72,7 @@ class Note:
     def __init__(self, paradict, midline=100, distance=30):
 
         # Assign
+        self.pid = paradict['pid']
         self.colour = constants.C_BLACK
         self.key = paradict['key']
         self.key_coded = eval("constants.K_" + paradict['keyboard'])
@@ -169,9 +169,6 @@ class Feedback:
 
 
 class CorrectNote:
-    """
-    Creates music sheet. This is a composite of white canvas field) with clef and horizontal lines
-    """
     def __init__(self, note, settings):
         size_box = settings["size_box"]
         pos_y = settings["position"]

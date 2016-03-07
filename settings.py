@@ -1,4 +1,4 @@
-from keys_info import mapping
+from note_info import note_mapping
 """
 Music Training Settings.
 
@@ -47,6 +47,7 @@ class Setup:
         self.y_init = screen_size[1] / 7
         self.line_dist = screen_size[1] / 100
 
-        self.selection = [x for x in mapping if x['clef'] in self.clef]
-        # self.selection = [x for x in mapping if x['key'] is 'C']
+        self.selection = [x for x in note_mapping if x['clef'] in self.clef]
+        #self.selection = [x for x in note_mapping if x['key'] is 'Db']
+#        self.selection = [x for x in note_mapping if x['pid'] is '130']
 

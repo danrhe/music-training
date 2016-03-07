@@ -69,9 +69,14 @@ for iTrial in range(0, setup.nTrials):
             help_line = stimuli.Line(hline['start_point'], hline['end_point'], hline['line_width'], colour=hline['colour'])
             help_line.present(clear=False, update=False)
 
-    # if Note is black add '#' to screen
+    # if Note is black add '#' or 'b' to screen
     if '#' in Notes[iRun].key:
         prefix = stimuli.TextLine('#', [Notes[iRun].position[0] -20,  Notes[iRun].position[1]], text_size=28,
+                                  text_colour=constants.C_BLACK)
+        prefix.present(clear=False, update=False)
+    # if Note is black add '#' to screen
+    elif 'b' in Notes[iRun].key:
+        prefix = stimuli.TextLine('b', [Notes[iRun].position[0] -20,  Notes[iRun].position[1]], text_size=28,
                                   text_colour=constants.C_BLACK)
         #prefix.rotate(5)
         prefix.present(clear=False, update=False)
@@ -83,7 +88,7 @@ for iTrial in range(0, setup.nTrials):
     mp = exp.mouse.position
 
     #index pressed key
-    index = findKey(piano.keys, Notes[iRun].key)
+    index = findKey(piano.keys, Notes[iRun].pid)
 
     # Evaluate mouse position
     piano.evalMouse(index, mp)

@@ -1,8 +1,8 @@
 from expyriment import stimuli
 from expyriment.misc import constants
-from keys_info import mapping
+from note_info import note_mapping
 from functions2 import mouseIsInside
-
+from keys_info import key_mapping
 
 class PianoKey:
     '''
@@ -10,6 +10,7 @@ class PianoKey:
     '''
     def __init__(self, key_mapping):
         self.name = key_mapping['key']
+        self.pid = key_mapping['pid']
 
         # key boarder rectangle parameters
         keys_to_c1 = key_mapping['keyboard_pos']
@@ -42,13 +43,10 @@ class PianoKey:
             #colour
             colour_rect = constants.C_BLACK
 
-
-
-
         #text parameters
-        text = self.name
+        text = self.pid
         y_text = 50
-        p = [ x_rect, y_text]
+        p = [x_rect, y_text]
 
         self.Border = stimuli.Rectangle([width_rect, height_rect], position=position_rect, colour=constants.C_BLACK)
         self.Key = stimuli.Rectangle([width_rect-3, height_rect-3], position=position_rect, colour=colour_rect)
@@ -64,7 +62,7 @@ class PianoKeyboard:
         self.Canvas = stimuli.Canvas([screen_size[0]-100, 200], position, colour=[30, 30, 30])
         self.MouseBool = False
         # fill list of piano keys according to order of appearance in key_info.py
-        for iKey in mapping:
+        for iKey in key_mapping:
             k = PianoKey(iKey)
             self.keys.append(k)
 
@@ -104,11 +102,11 @@ class PianoKeyboard:
 
 
 
-def findKey(list1, key):
+def findKey(list1, pid):
     count = 0
     for item in list1:
-        name = item.name
-        if name == key:
+        ipid = item.pid
+        if ipid == pid:
             return count
 
         count += 1
