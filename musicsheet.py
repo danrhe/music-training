@@ -1,7 +1,6 @@
 from expyriment import stimuli
 from expyriment.misc import constants
 import numpy as np
-from keys_info import mapping
 
 class MusicSheet:
     """
@@ -53,11 +52,26 @@ class MusicSheet:
         clef.scale(3.9 * screen_size[0] / 100000)
         clef.plot(self.Field)
 
+    def add_helplines(self, note):
+
+        if len(note.help_lines) > 0:
+            for hline in note.help_lines:
+
+                help_line = stimuli.Line(hline['start_point'], hline['end_point'], hline['line_width'], colour=hline['colour'])
+                help_line.present(clear=False, update=False)
+
+    def add_prefix (self, note):
+        if note.prefix:
+            prefix = stimuli.TextLine(note.prefix, [note.position[0] -20,  note.position[1]], text_font='luxisans', text_size=28,
+                                  text_colour=constants.C_BLACK)
+            prefix.present(clear=False, update=False)
+
+
 class Note:
     """
     Implements Note stimulus as expyriment ellipse
     :parameter:
-    paradict: dictionary with all stimulus parameters such as key, position_factor, keyboard, cleft, white_key and keyboard pos (see key_info.py)
+    paradict: dictionary with all stimulus parameters such as key, position_factor, keyboard, cleft, white_key and keyboard pos (see note_info.py)
     midline: optional [int] y-axis offset
     distance: optional [int] distance between lines
         {'key': 'c3',
@@ -73,6 +87,8 @@ class Note:
     def __init__(self, paradict, midline=100, distance=30):
 
         # Assign
+        self.pid = paradict['pid']
+        self.prefix = paradict['prefix']
         self.colour = constants.C_BLACK
         self.key = paradict['key']
         self.key_coded = eval("constants.K_" + paradict['keyboard'])
@@ -116,13 +132,15 @@ class Note:
                         'colour': self.colour,
                     })
 
-    def Evaluate_Buttonpress (self, key_pressed, rt):
+    def Evaluate_Buttonpress(self, key_pressed, rt, mouse):
 
-        if key_pressed == self.key_coded:
-            self.Feedback_text = "correct"
-            self.RTs = np.append(self.RTs, rt)
-            self.str_rt = str("%.1f" % rt)
+        if mouse:
 
+            if key_pressed == constants.K_SPACE:
+
+                self.Feedback_text = "correct"
+                self.RTs = np.append(self.RTs, rt)
+                self.str_rt = str("%.1f" % rt)
         else:
             self.Feedback_text = "wrong"
             self.misses += 1
@@ -167,9 +185,6 @@ class Feedback:
 
 
 class CorrectNote:
-    """
-    Creates music sheet. This is a composite of white canvas field) with clef and horizontal lines
-    """
     def __init__(self, note, settings):
         size_box = settings["size_box"]
         pos_y = settings["position"]

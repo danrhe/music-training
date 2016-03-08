@@ -1,6 +1,6 @@
 from expyriment import design, control,stimuli,io
 from expyriment.misc import constants
-from functions2 import MusicSheet
+from functions2 import MusicSheet, mouseIsInside
 '''
 Custom settings
 '''
@@ -20,15 +20,27 @@ exp = design.Experiment(name="MusicTraining")
 control.initialize(exp)
 
 
-musicsheet = MusicSheet(screen_size=exp.screen.size, pos_y={'g': 0, 'f': 0})
+rect = stimuli.Rectangle([80,20],[200,0,0], position=[120,-30])
 
 control.start(subject_id=45)
 
 stimuli.BlankScreen().present(clear=True, update=False)
 
-musicsheet.Field.present(clear=False, update=True)
+rect.present(clear=False, update=True)
 mouse = io.Mouse()
 mouse.show_cursor()
+
+for i in range(0, 1000):
+
+    t = mouseIsInside(rect.size, rect.position, mouse.position)
+
+    text = stimuli.TextLine(str(t), [0,-100], text_colour=[200,200,0])
+
+
+    text.present(clear=True, update=False )
+    rect.present(clear=False, update=True)
+
+
 # Wait for button press
 key, rt = exp.keyboard.wait(constants.K_ALL_LETTERS)
 
