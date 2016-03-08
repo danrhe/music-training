@@ -52,6 +52,21 @@ class MusicSheet:
         clef.scale(3.9 * screen_size[0] / 100000)
         clef.plot(self.Field)
 
+    def add_helplines(self, note):
+
+        if len(note.help_lines) > 0:
+            for hline in note.help_lines:
+
+                help_line = stimuli.Line(hline['start_point'], hline['end_point'], hline['line_width'], colour=hline['colour'])
+                help_line.present(clear=False, update=False)
+
+    def add_prefix (self, note):
+        if note.prefix:
+            prefix = stimuli.TextLine(note.prefix, [note.position[0] -20,  note.position[1]], text_font='luxisans', text_size=28,
+                                  text_colour=constants.C_BLACK)
+            prefix.present(clear=False, update=False)
+
+
 class Note:
     """
     Implements Note stimulus as expyriment ellipse
@@ -178,18 +193,3 @@ class CorrectNote:
         self.CorrectNote = stimuli.TextBox(note.key, size_box, pos_y, text_size=text_size)
 
 
-def mouseIsInside (key_size, key_position, mouse_position):
-
-    right = (key_size[0] / 2) + key_position[0]
-    left = right - key_size[0]
-    top = (key_size[1] / 2) + key_position[1]
-    bottom = top - key_size[1]
-
-    mp = mouse_position
-
-    if mp[0] <= right and mp[0] >=  left and mp[1] <= top and mp[1] >= bottom:
-        t = True
-    else:
-        t = False
-
-    return t

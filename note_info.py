@@ -1,5 +1,5 @@
 """
-Music Training key mapping.
+Music Training note mapping.
 
 This module contains an array of dictionaries containing music note mappings.
 

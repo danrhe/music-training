@@ -1,7 +1,5 @@
 from expyriment import stimuli
 from expyriment.misc import constants
-from note_info import note_mapping
-from functions2 import mouseIsInside
 from keys_info import key_mapping
 
 class PianoKey:
@@ -59,6 +57,7 @@ class PianoKey:
 class PianoKeyboard:
     def __init__(self, screen_size, position=[0, 0]):
         self.keys = list()
+        self.index = int()
         self.Canvas = stimuli.Canvas([screen_size[0]-100, 200], position, colour=[30, 30, 30])
         self.MouseBool = False
         # fill list of piano keys according to order of appearance in key_info.py
@@ -79,68 +78,83 @@ class PianoKeyboard:
 
     def evalMouse(self, index, mp):
         # Index goes from right to left
-        test_self = mouseIsInside(self.keys[index].Key.size, self.keys[index].Key.position, mp)
+        test_self = self.mouseIsInside(index, mp)
         test_1 = False
         test_2 = False
 
         if self.keys[index].white_key:
             # Most right key
             if index == 0:
-                test_1 = mouseIsInside(self.keys[index+1].Key.size, self.keys[index+1].Key.position, mp)
+                test_1 = self.mouseIsInside(index+1, mp)
                 test_2 = False
             elif index == len(self.keys)-1:
                 test_1 = False
-                test_2 = mouseIsInside(self.keys[index-1].Key.size, self.keys[index-1].Key.position, mp)
+                test_2 = self.mouseIsInside(index-1, mp)
             else:
-                test_1 = mouseIsInside(self.keys[index+1].Key.size, self.keys[index+1].Key.position, mp)
-                test_2 = mouseIsInside(self.keys[index-1].Key.size, self.keys[index-1].Key.position, mp)
+                test_1 = self.mouseIsInside(index+1, mp)
+                test_2 = self.mouseIsInside(index-1, mp)
 
         if test_self is True and (test_1 is False and test_2 is False):
             self.MouseBool = True
         else:
             self.MouseBool = False
 
+    def mouseIsInside(self, index, mouse_position):
+        right = (self.keys[index].Key.size[0] / 2) + self.keys[index].Key.position[0]
+        left = right - self.keys[index].Key.size[0]
+        top = (self.keys[index].Key.size[1] / 2) + self.keys[index].Key.position[1]
+        bottom = top - self.keys[index].Key.size[1]
 
+        mp = mouse_position
 
-def findKey(list1, pid):
-    count = 0
-    for item in list1:
-        ipid = item.pid
-        if ipid == pid:
-            return count
-
-        count += 1
-
-
-def printColoredKey(keys, index):
-    """
-    prints the expected key in colour. Because black keys overlap white keys, we have to present again the black keys
-    left and right to a white key
-
-
-    :param keys: list of all keys
-    :param index: index of the key to be coloured
-    :return: nothing
-
-    """
-
-
-    ck2 = keys[index].KeyGreen.present(clear=False, update=False)
-
-    if keys[index].white_key:
-        if index == 0:
-            ck1 = False
-            #ck1 = keys[index+1].Key.present(clear=False, update=False)
-        elif index == len(keys)-1:
-            ck3 = keys[index-1].Key.present(clear=False, update=False)
+        if mp[0] <= right and mp[0] >=  left and mp[1] <= top and mp[1] >= bottom:
+            t = True
         else:
-            ck1 = keys[index+1]
-            ck3 = keys[index-1]
-            if ck1.white_key is False:
-                ck1.Key.present(clear=False, update=False)
-            if ck3.white_key is False:
-                ck3.Key.present(clear=False, update=False)
+            t = False
 
-    ck = keys[index].Text.present(clear=False, update=True)
+        return t
+
+
+    def findKey(self, pid):
+
+        count = 0
+        for item in self.keys:
+            ipid = item.pid
+            if ipid == pid:
+                return count
+
+            count += 1
+
+
+    def printColoredKey(self, index):
+        """
+        prints the expected key in colour. Because black keys overlap white keys, we have to present again the black keys
+        left and right to a white key
+
+
+        :param keys: list of all keys
+        :param index: index of the key to be coloured
+        :return: nothing
+
+        """
+
+
+        ck2 = self.keys[index].KeyGreen.present(clear=False, update=False)
+
+        if self.keys[index].white_key:
+            if index == 0:
+                ck1 = False
+                #ck1 = keys[index+1].Key.present(clear=False, update=False)
+            elif index == len(self.keys)-1:
+                ck3 = self.keys[index-1].Key.present(clear=False, update=False)
+            else:
+                ck1 = self.keys[index+1]
+                ck3 = self.keys[index-1]
+                if ck1.white_key is False:
+                    ck1.Key.present(clear=False, update=False)
+                if ck3.white_key is False:
+                    ck3.Key.present(clear=False, update=False)
+
+        ck = self.keys[index].Text.present(clear=False, update=True)
 
 

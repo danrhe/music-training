@@ -1,8 +1,8 @@
 from expyriment import design, control, stimuli, io
 from expyriment.misc import constants
-from functions2 import MusicSheet, Notes, Feedback
+from musicsheet import MusicSheet, Notes, Feedback
 from settings import Setup
-from keyboard import PianoKeyboard, findKey, printColoredKey
+from keyboard import PianoKeyboard
 import random
 '''
 Custom settings
@@ -15,6 +15,7 @@ control.set_develop_mode(True)
 io.defaults.outputfile_time_stamp = True
 #control.defaults.initialize_delay = 0
 
+
 '''
 Prepare Training
 '''
@@ -23,6 +24,7 @@ exp = design.Experiment(name="MusicTraining")
 control.initialize(exp)
 setup = Setup(screen_size=exp.screen.size)
 exp.mouse.show_cursor()
+
 # Create list of musicsheet objects
 musicsheet = dict()
 for clef in setup.clef:
@@ -57,24 +59,19 @@ Trial function
 for iTrial in range(0, setup.nTrials):
 
     stimuli.BlankScreen().present(clear=True, update=False)
+
     piano.Canvas.present(clear=False, update=False)
 
+    # Present empty music sheet
     musicsheet[Notes[iRun].clef].Field.present(clear=False, update=True)
 
-    # Add the note to the sheet; if Note needs extra help lines they need to be added first
-    if len(Notes[iRun].help_lines) > 0:
-        for hline in Notes[iRun].help_lines:
-            vals = hline.values()
+    # if Note needs extra help lines they need to be added first
+    musicsheet[Notes[iRun].clef].add_helplines(Notes[iRun])
 
-            help_line = stimuli.Line(hline['start_point'], hline['end_point'], hline['line_width'], colour=hline['colour'])
-            help_line.present(clear=False, update=False)
+    # if Note has prefix, add it to screen
+    musicsheet[Notes[iRun].clef].add_prefix(Notes[iRun])
 
-    # if Note has prefix, present to screen
-    if Notes[iRun].prefix:
-        prefix = stimuli.TextLine(Notes[iRun].prefix, [Notes[iRun].position[0] -20,  Notes[iRun].position[1]], text_font='luxisans', text_size=28,
-                                  text_colour=constants.C_BLACK)
-        prefix.present(clear=False, update=False)
-
+    # Present note, prefix and lines
     Notes[iRun].stimuli.present(clear=False, update=True)
 
     # Wait for button press
@@ -82,7 +79,7 @@ for iTrial in range(0, setup.nTrials):
     mp = exp.mouse.position
 
     #index pressed key
-    index = findKey(piano.keys, Notes[iRun].pid)
+    index = piano.findKey(Notes[iRun].pid)
 
     # Evaluate mouse position
     piano.evalMouse(index, mp)
@@ -99,7 +96,7 @@ for iTrial in range(0, setup.nTrials):
 #    text = stimuli.TextLine(str(piano.MouseBool), [0,-100], text_colour=[200,200,0])
 #    text.present(clear=True, update=False)
 
-    printColoredKey(piano.keys, index)
+    piano.printColoredKey(index)
 
     exp.keyboard.wait(constants.K_SPACE)
 

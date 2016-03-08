@@ -49,5 +49,5 @@ class Setup:
 
         self.selection = [x for x in note_mapping if x['clef'] in self.clef]
         #self.selection = [x for x in note_mapping if x['key'] is 'Db']
-        self.selection = [x for x in note_mapping if x['pid'] is '100']
+        #self.selection = [x for x in note_mapping if x['pid'] is '100']
 
