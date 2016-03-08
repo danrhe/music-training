@@ -73,6 +73,7 @@ class Note:
 
         # Assign
         self.pid = paradict['pid']
+        self.prefix = paradict['prefix']
         self.colour = constants.C_BLACK
         self.key = paradict['key']
         self.key_coded = eval("constants.K_" + paradict['keyboard'])

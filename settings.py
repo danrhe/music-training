@@ -19,7 +19,7 @@ class Setup:
     lines = createLineParameter(set.y_init, set.line_dist, set.OPTIONS['colour'])
     """
     def __init__(self, screen_size):
-        self.nTrials = 50
+        self.nTrials = 86 # one set
         self.clef = ["g", "f"]
         self.black_keys = False
         self.all_notes_once = True
@@ -49,5 +49,5 @@ class Setup:
 
         self.selection = [x for x in note_mapping if x['clef'] in self.clef]
         #self.selection = [x for x in note_mapping if x['key'] is 'Db']
-#        self.selection = [x for x in note_mapping if x['pid'] is '130']
+        self.selection = [x for x in note_mapping if x['pid'] is '100']
 

@@ -129,7 +129,8 @@ def printColoredKey(keys, index):
 
     if keys[index].white_key:
         if index == 0:
-            ck1 = keys[index+1].Key.present(clear=False, update=False)
+            ck1 = False
+            #ck1 = keys[index+1].Key.present(clear=False, update=False)
         elif index == len(keys)-1:
             ck3 = keys[index-1].Key.present(clear=False, update=False)
         else:
