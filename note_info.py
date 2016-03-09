@@ -398,7 +398,7 @@ note_mapping = [
      'clef': 'f',
      'white_key': True,
      },
-    {'pid': '126',
+    {'pid': '125',
      'key': 'd1b',
      'prefix': 'b',
      'position_factor': 7,
