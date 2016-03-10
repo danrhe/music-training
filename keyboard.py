@@ -8,7 +8,7 @@ class PianoKey:
     '''
     def __init__(self, key_mapping):
         self.name = key_mapping['key']
-        self.pid = key_mapping['pid']
+        self.kid = key_mapping['kid']
 
         # key boarder rectangle parameters
         keys_to_c1 = key_mapping['keyboard_pos']
@@ -41,16 +41,15 @@ class PianoKey:
             #colour
             colour_rect = constants.C_BLACK
 
-        #text parameters
-        text = self.pid
-        y_text = 50
-        p = [x_rect, y_text]
 
         self.Border = stimuli.Rectangle([width_rect, height_rect], position=position_rect, colour=constants.C_BLACK)
         self.Key = stimuli.Rectangle([width_rect-3, height_rect-3], position=position_rect, colour=colour_rect)
         self.KeyGreen = stimuli.Rectangle([width_rect-3, height_rect-3], position=position_rect, colour=constants.C_GREEN)
 
-        self.Text = stimuli.TextLine(text, p)
+        #text parameters
+        self.text_title = ""
+        y_text = 50
+        self.text_position = [x_rect, y_text]
 
 
 
@@ -115,12 +114,12 @@ class PianoKeyboard:
         return t
 
 
-    def findKey(self, pid):
+    def findKey(self, nid):
 
         count = 0
         for item in self.keys:
-            ipid = item.pid
-            if ipid == pid:
+            ipid = item.kid
+            if ipid == nid:
                 return count
 
             count += 1
@@ -139,7 +138,7 @@ class PianoKeyboard:
         """
 
 
-        ck2 = self.keys[index].KeyGreen.present(clear=False, update=False)
+        self.keys[index].KeyGreen.present(clear=False, update=False)
 
         if self.keys[index].white_key:
             if index == 0:
@@ -155,6 +154,10 @@ class PianoKeyboard:
                 if ck3.white_key is False:
                     ck3.Key.present(clear=False, update=False)
 
-        ck = self.keys[index].Text.present(clear=False, update=True)
 
+
+    def printKeyName (self, index, name):
+
+        self.Text = stimuli.TextLine(name, self.keys[index].text_position)
+        self.Text.present(clear=False, update=True)
 

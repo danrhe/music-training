@@ -79,7 +79,7 @@ for iTrial in range(0, setup.nTrials):
     mp = exp.mouse.position
 
     #index pressed key
-    index = piano.findKey(Notes[iRun].pid)
+    index = piano.findKey(Notes[iRun].nid)
 
     # Evaluate mouse position
     piano.evalMouse(index, mp)
@@ -97,6 +97,7 @@ for iTrial in range(0, setup.nTrials):
 #    text.present(clear=True, update=False)
 
     piano.printColoredKey(index)
+    piano.printKeyName(index, Notes[iRun].name)
 
     exp.keyboard.wait(constants.K_SPACE)
 

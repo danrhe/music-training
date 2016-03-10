@@ -87,7 +87,8 @@ class Note:
     def __init__(self, paradict, midline=100, distance=30):
 
         # Assign
-        self.pid = paradict['pid']
+        self.nid = paradict['nid']
+        self.name = paradict['name']
         self.prefix = paradict['prefix']
         self.colour = constants.C_BLACK
         self.key = paradict['key']
