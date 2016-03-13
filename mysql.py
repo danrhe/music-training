@@ -73,6 +73,7 @@ def get_local_logs(path_files):
 class Logfile:
     def __init__(self, file_name):
         self.name = file_name
+        print "start ingesting ", self.name
         full_path = path_files + self.name
 
         with open(full_path) as f:
@@ -122,9 +123,9 @@ class Logfile:
 
 #Script begins here
 
-truncate_table('Sessions')
+#truncate_table('Sessions')
 
-truncate_table('Raw')
+#truncate_table('Raw')
 
 ingested = get_existing_files()
 
@@ -132,10 +133,14 @@ logfiles = get_local_logs(path_files)
 
 newlogfiles = [x for x in logfiles if x not in ingested]
 
-for el in logfiles:
-    l = Logfile(el)
-    l.log_session()
-    l.export_raw_data()
+if (len(newlogfiles) > 0):
+    for el in newlogfiles:
+        l = Logfile(el)
+        l.log_session()
+        l.export_raw_data()
+else:
+     print "all files are already ingested"
+
 #print(l)
 
 
