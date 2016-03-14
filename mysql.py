@@ -122,9 +122,9 @@ class Logfile:
 
 #Script begins here
 
-truncate_table('Sessions')
+#truncate_table('Sessions')
 
-truncate_table('Raw')
+#truncate_table('Raw')
 
 ingested = get_existing_files()
 
@@ -132,7 +132,7 @@ logfiles = get_local_logs(path_files)
 
 newlogfiles = [x for x in logfiles if x not in ingested]
 
-for el in logfiles:
+for el in newlogfiles:
     l = Logfile(el)
     l.log_session()
     l.export_raw_data()
