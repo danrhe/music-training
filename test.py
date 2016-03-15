@@ -1,6 +1,7 @@
 from expyriment import design, control,stimuli,io
+import pygame.midi
 from expyriment.misc import constants
-from functions2 import MusicSheet, mouseIsInside
+from musicsheet import MusicSheet
 '''
 Custom settings
 '''
@@ -30,11 +31,14 @@ rect.present(clear=False, update=True)
 mouse = io.Mouse()
 mouse.show_cursor()
 
+p = io.extras.MidiIn()
+
+
 for i in range(0, 1000):
 
-    t = mouseIsInside(rect.size, rect.position, mouse.position)
 
-    text = stimuli.TextLine(str(t), [0,-100], text_colour=[200,200,0])
+
+    text = stimuli.TextLine('hello', [0,-100], text_colour=[200,200,0])
 
 
     text.present(clear=True, update=False )
@@ -42,7 +46,8 @@ for i in range(0, 1000):
 
 
 # Wait for button press
-key, rt = exp.keyboard.wait(constants.K_ALL_LETTERS)
+key, rt = p.wait(constants.K_ALL_LETTERS)
+#key, rt = exp.keyboard.wait(constants.K_ALL_LETTERS)
 
 
 control.end(goodbye_text='Thats it', goodbye_delay=1000)

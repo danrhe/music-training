@@ -1,7 +1,6 @@
 import os
 import MySQLdb as db
 from credentials import *
-#import numpy as np
 from time import strptime
 
 def push_MySQL(sql):
@@ -122,25 +121,26 @@ class Logfile:
 
 
 #Script begins here
+def clean_MySQL():
 
-#truncate_table('Sessions')
+    truncate_table('Sessions')
+    truncate_table('Raw')
 
-#truncate_table('Raw')
+def write_to_MySQL():
+    ingested = get_existing_files()
 
-ingested = get_existing_files()
+    logfiles = get_local_logs(path_files)
 
-logfiles = get_local_logs(path_files)
+    newlogfiles = [x for x in logfiles if x not in ingested]
 
-newlogfiles = [x for x in logfiles if x not in ingested]
+    if (len(newlogfiles) > 0):
+        for el in newlogfiles:
+            l = Logfile(el)
+            l.log_session()
+            l.export_raw_data()
+    else:
+         print "all files are already ingested"
 
-if (len(newlogfiles) > 0):
-    for el in newlogfiles:
-        l = Logfile(el)
-        l.log_session()
-        l.export_raw_data()
-else:
-     print "all files are already ingested"
-
-#print(l)
+write_to_MySQL()
 
 
