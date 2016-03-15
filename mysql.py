@@ -133,12 +133,6 @@ logfiles = get_local_logs(path_files)
 
 newlogfiles = [x for x in logfiles if x not in ingested]
 
-<<<<<<< HEAD
-for el in newlogfiles:
-    l = Logfile(el)
-    l.log_session()
-    l.export_raw_data()
-=======
 if (len(newlogfiles) > 0):
     for el in newlogfiles:
         l = Logfile(el)
@@ -147,7 +141,6 @@ if (len(newlogfiles) > 0):
 else:
      print "all files are already ingested"
 
->>>>>>> origin/master
-#print(l)
+print(l)
 
 
