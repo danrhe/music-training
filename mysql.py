@@ -141,6 +141,6 @@ if (len(newlogfiles) > 0):
 else:
      print "all files are already ingested"
 
-print(l)
+#print(l)
 
 
