@@ -1,4 +1,6 @@
 from note_info import note_mapping
+from use_user_history import User_data
+
 """
 Music Training Settings.
 
@@ -47,7 +49,14 @@ class Setup:
         self.y_init = screen_size[1] / 7
         self.line_dist = screen_size[1] / 100
 
-        self.selection = [x for x in note_mapping if x['clef'] in self.clef]
+        self.all_notes = [x for x in note_mapping if x['clef'] in self.clef]
+        u = User_data('45')
+        u.get_db_data()
+        u.calc_hitrate()
+        u.get_bad_performance()
+        u.make_selection(self.all_notes)
+        self.selection = u.selection
+
         #self.selection = [x for x in note_mapping if x['key'] is 'Db']
         #self.selection = [x for x in note_mapping if x['pid'] is '100']
 
