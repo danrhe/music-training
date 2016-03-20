@@ -4,6 +4,7 @@ from musicsheet import MusicSheet, Notes, Feedback
 from settings import Setup
 from keyboard import PianoKeyboard
 import random
+from mysql import *
 '''
 Custom settings
 '''
@@ -110,3 +111,4 @@ for iTrial in range(0, setup.nTrials):
         iRun = 0
 
 control.end(goodbye_text='Thats it', goodbye_delay=1000)
+write_to_MySQL()

@@ -1,5 +1,6 @@
 from note_info import note_mapping
 from use_user_history import User_data
+from mysql import *
 
 """
 Music Training Settings.
@@ -21,7 +22,7 @@ class Setup:
     lines = createLineParameter(set.y_init, set.line_dist, set.OPTIONS['colour'])
     """
     def __init__(self, screen_size):
-        self.nTrials = 86 # one set
+        self.nTrials = 50 # one set
         self.clef = ["g", "f"]
         self.black_keys = False
         self.all_notes_once = True
@@ -50,12 +51,23 @@ class Setup:
         self.line_dist = screen_size[1] / 100
 
         self.all_notes = [x for x in note_mapping if x['clef'] in self.clef]
-        u = User_data('45')
-        u.get_db_data()
-        u.calc_hitrate()
-        u.get_bad_performance()
-        u.make_selection(self.all_notes)
-        self.selection = u.selection
+        print (len(self.all_notes))
+        try:
+            u = User_data('45')
+            u.get_data()
+            u.calc_hitrate()
+            u.get_bad_performance()
+            u.make_selection(self.all_notes)
+            self.selection = u.selection
+        except:
+            print ('Couldn\'t load user data')
+            self.selection = self.all_notes
+            print ('using all notes')
+        else:
+            print ('Using only notes with poor user performance')
+
+
+
 
         #self.selection = [x for x in note_mapping if x['key'] is 'Db']
         #self.selection = [x for x in note_mapping if x['pid'] is '100']

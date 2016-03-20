@@ -135,12 +135,15 @@ def write_to_MySQL():
 
     if (len(newlogfiles) > 0):
         for el in newlogfiles:
-            l = Logfile(el)
-            l.log_session()
-            l.export_raw_data()
+            try:
+                l = Logfile(el)
+                l.log_session()
+                l.export_raw_data()
+            except:
+                print('Error ingesting file ' + el)
+
     else:
          print "all files are already ingested"
 
-write_to_MySQL()
 
 
