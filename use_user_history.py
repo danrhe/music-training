@@ -7,13 +7,16 @@ class User_data(object):
     def __init__(self, uid):
         self.filename = "user_" + uid + '.pkl'
 
-    def get_data(self):
-        try:
-            self.get_db_data()
-            self.export_data()
-            print ('Received fresh user data from MySQL database')
-        except:
-            print "Could not get data from database. Using local data instead"
+    def get_data(self, refresh_user_data):
+        if refresh_user_data:
+            try:
+                self.get_db_data()
+                self.export_data()
+                print ('Received fresh user data from MySQL database')
+            except:
+                print "Could not get data from database. Using local data instead"
+            else:
+                self.get_local_data()
         else:
             self.get_local_data()
 

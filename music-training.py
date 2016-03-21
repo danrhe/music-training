@@ -23,7 +23,7 @@ Prepare Training
 #Initialize experiment and load setup
 exp = design.Experiment(name="MusicTraining")
 control.initialize(exp)
-setup = Setup(screen_size=exp.screen.size)
+setup = Setup(screen_size=exp.screen.size, use_all_notes=True)
 exp.mouse.show_cursor()
 
 # Create list of musicsheet objects
@@ -76,7 +76,12 @@ for iTrial in range(0, setup.nTrials):
     Notes[iRun].stimuli.present(clear=False, update=True)
 
     # Wait for button press
-    key, rt = exp.keyboard.wait(constants.K_SPACE)
+    key, rt = exp.keyboard.wait(constants.K_SPACE, 8000)
+
+    if key is None:
+        key = constants.K_q
+        rt = 8000
+
     mp = exp.mouse.position
 
     #index pressed key
@@ -111,4 +116,4 @@ for iTrial in range(0, setup.nTrials):
         iRun = 0
 
 control.end(goodbye_text='Thats it', goodbye_delay=1000)
-write_to_MySQL()
+#write_to_MySQL()

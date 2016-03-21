@@ -21,12 +21,14 @@ class Setup:
     # Create line parameters
     lines = createLineParameter(set.y_init, set.line_dist, set.OPTIONS['colour'])
     """
-    def __init__(self, screen_size):
+    def __init__(self, screen_size, use_all_notes=False, refresh_user_data=True):
         self.nTrials = 50 # one set
         self.clef = ["g", "f"]
         self.black_keys = False
         self.all_notes_once = True
         self.colour = "bw"
+        self.refresh_user_data = refresh_user_data
+        self.use_all_notes = use_all_notes
         self.pos_y = {
             "g": 0 + screen_size[1] / 4,
             "f": 0 + screen_size[1] / 4
@@ -51,20 +53,24 @@ class Setup:
         self.line_dist = screen_size[1] / 100
 
         self.all_notes = [x for x in note_mapping if x['clef'] in self.clef]
-        print (len(self.all_notes))
-        try:
-            u = User_data('45')
-            u.get_data()
-            u.calc_hitrate()
-            u.get_bad_performance()
-            u.make_selection(self.all_notes)
-            self.selection = u.selection
-        except:
-            print ('Couldn\'t load user data')
-            self.selection = self.all_notes
-            print ('using all notes')
+
+        if self.use_all_notes:
+                self.selection = self.all_notes
+
         else:
-            print ('Using only notes with poor user performance')
+            try:
+                u = User_data('45')
+                u.get_data(self.refresh_user_data)
+                u.calc_hitrate()
+                u.get_bad_performance()
+                u.make_selection(self.all_notes)
+                self.selection = u.selection
+            except:
+                print ('Couldn\'t load user data')
+                self.selection = self.all_notes
+                print ('using all notes')
+            else:
+                print ('Using only notes with poor user performance')
 
 
 
