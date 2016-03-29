@@ -13,13 +13,13 @@ class User_data(object):
                 self.get_db_data()
                 self.export_data()
             except:
-                print "Could not get data from database. Using local data instead"
+                print "Could not get new data from database. Using cached data instead"
             else:
                 print ('Received fresh user data from MySQL database')
-                self.get_local_data()
         else:
-            print ('Only using local data')
-            self.get_local_data()
+            print ('Only cached data')
+
+        self.get_local_data()
 
     def export_data(self):
         with open('cache/' + self.filename, 'wb') as output:

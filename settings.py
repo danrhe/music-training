@@ -67,8 +67,8 @@ class Setup:
                 self.selection = u.selection
             except:
                 print ('Couldn\'t load user data')
-                self.selection = self.all_notes
                 print ('using all notes')
+                self.selection = self.all_notes
             else:
                 print ('Using only notes with poor user performance')
 
