@@ -24,7 +24,7 @@ Prepare Training
 #Initialize experiment and load setup
 exp = design.Experiment(name="MusicTraining")
 control.initialize(exp)
-setup = Setup(screen_size=exp.screen.size)
+setup = Setup(screen_size=exp.screen.size, use_all_notes=True)
 exp.mouse.show_cursor()
 
 # Create list of musicsheet objects
@@ -82,6 +82,10 @@ for iTrial in range(0, setup.nTrials):
     # Wait for button press
     key, rt = t.countdown_buttonpress(exp, constants.K_SPACE)
 #    key, rt = exp.keyboard.wait(constants.K_SPACE)
+    if key is None:
+        key = constants.K_q
+        rt = 8000
+
     mp = exp.mouse.position
 
     #index pressed key
