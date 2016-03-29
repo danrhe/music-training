@@ -3,6 +3,7 @@ from expyriment.misc import constants
 from musicsheet import MusicSheet, Notes, Feedback
 from settings import Setup
 from keyboard import PianoKeyboard
+from timer import Timer
 import random
 from mysql import *
 '''
@@ -42,6 +43,9 @@ piano = PianoKeyboard(exp.screen.size)
 #Randomize order of notes
 random.shuffle(Notes)
 
+# Add timer with max time
+t = Timer(10000)
+
 
 '''
 Start Training
@@ -76,7 +80,8 @@ for iTrial in range(0, setup.nTrials):
     Notes[iRun].stimuli.present(clear=False, update=True)
 
     # Wait for button press
-    key, rt = exp.keyboard.wait(constants.K_SPACE)
+    key, rt = t.countdown_buttonpress(exp, constants.K_SPACE)
+#    key, rt = exp.keyboard.wait(constants.K_SPACE)
     mp = exp.mouse.position
 
     #index pressed key
@@ -90,8 +95,8 @@ for iTrial in range(0, setup.nTrials):
 
 
     # Add feedback about performance and correct key to the screen
-    fb = Feedback(note=Notes[iRun], settings=setup.settings_feedback)
-    fb.TextBox.present(clear=False, update=False)
+    #fb = Feedback(note=Notes[iRun], settings=setup.settings_feedback)
+    #fb.TextBox.present(clear=False, update=False)
 
 
 #    text = stimuli.TextLine(str(piano.MouseBool), [0,-100], text_colour=[200,200,0])
@@ -111,4 +116,4 @@ for iTrial in range(0, setup.nTrials):
         iRun = 0
 
 control.end(goodbye_text='Thats it', goodbye_delay=1000)
-write_to_MySQL()
+#write_to_MySQL()

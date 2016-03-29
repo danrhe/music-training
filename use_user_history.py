@@ -11,10 +11,11 @@ class User_data(object):
         try:
             self.get_db_data()
             self.export_data()
-            print ('Received fresh user data from MySQL database')
         except:
             print "Could not get data from database. Using local data instead"
         else:
+            print ('Received fresh user data from MySQL database')
+        finally:
             self.get_local_data()
 
     def export_data(self):
