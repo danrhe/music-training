@@ -21,14 +21,12 @@ class Setup:
     # Create line parameters
     lines = createLineParameter(set.y_init, set.line_dist, set.OPTIONS['colour'])
     """
-    def __init__(self, screen_size, use_all_notes=False, refresh_user_data=True):
+    def __init__(self, screen_size):
         self.nTrials = 50 # one set
         self.clef = ["g", "f"]
         self.black_keys = False
         self.all_notes_once = True
         self.colour = "bw"
-        self.refresh_user_data = refresh_user_data
-        self.use_all_notes = use_all_notes
         self.pos_y = {
             "g": 0 + screen_size[1] / 4,
             "f": 0 + screen_size[1] / 4
@@ -52,6 +50,11 @@ class Setup:
         self.y_init = screen_size[1] / 7
         self.line_dist = screen_size[1] / 100
 
+    def make_selection(self, use_all_notes=False, refresh_user_data=True):
+
+        self.refresh_user_data = refresh_user_data
+        self.use_all_notes = use_all_notes
+
         self.all_notes = [x for x in note_mapping if x['clef'] in self.clef]
 
         if self.use_all_notes:
@@ -71,6 +74,7 @@ class Setup:
                 self.selection = self.all_notes
             else:
                 print ('Using only notes with poor user performance')
+                return u
 
 
 

@@ -24,7 +24,8 @@ Prepare Training
 #Initialize experiment and load setup
 exp = design.Experiment(name="MusicTraining")
 control.initialize(exp)
-setup = Setup(screen_size=exp.screen.size, use_all_notes=False)
+setup = Setup(screen_size=exp.screen.size)
+setup.make_selection(use_all_notes=False)
 exp.mouse.show_cursor()
 
 # Create list of musicsheet objects

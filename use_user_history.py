@@ -29,13 +29,18 @@ class User_data(object):
         with open('cache/' + self.filename, 'rb') as input:
             self.data = pickle.load(input)
 
+        self.data.hit[self.data.rt > 10000] = 'wrong'
+
+
     def get_db_data(self):
         engine = create_engine('mysql://' + user_id + ":" + password + '@' + host + '/' + user_db + '?charset=utf8&use_unicode=0', pool_recycle=3600)
         con = engine.connect()
         self.data = pd.read_sql_table('Raw', con)
+
         con.close()
 
     def calc_hitrate(self):
+
         hit_rate = pd.pivot_table(self.data, values='rt', index=['clef', 'note'], columns='hit', aggfunc='count')
         hit_rate.fillna(0)
 
