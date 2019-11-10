@@ -1,6 +1,5 @@
 from note_info import note_mapping
-from use_user_history import User_data
-from mysql import *
+from Database.use_user_history import User_data
 
 """
 Music Training Settings.
@@ -52,7 +51,7 @@ class Setup:
 
     def make_selection(self, use_all_notes=False, refresh_user_data=True):
 
-        self.refresh_user_data = refresh_user_data
+      #  self.refresh_user_data = refresh_user_data
         self.use_all_notes = use_all_notes
 
         self.all_notes = [x for x in note_mapping if x['clef'] in self.clef]

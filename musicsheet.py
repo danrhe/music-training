@@ -62,7 +62,7 @@ class MusicSheet:
 
     def add_prefix (self, note):
         if note.prefix:
-            prefix = stimuli.TextLine(note.prefix, [note.position[0] -20,  note.position[1]], text_font='luxisans', text_size=28,
+            prefix = stimuli.TextLine(note.prefix, [note.position[0] -20,  note.position[1]], text_font='monospace', text_size=28,
                                   text_colour=constants.C_BLACK)
             prefix.present(clear=False, update=False)
 

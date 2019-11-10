@@ -1,11 +1,11 @@
 from expyriment import design, control, stimuli, io
 from expyriment.misc import constants
-from musicsheet import MusicSheet, Notes, Feedback
+from musicsheet import MusicSheet, Notes
 from settings import Setup
 from keyboard import PianoKeyboard
 from timer import Timer
 import random
-from mysql import *
+
 '''
 Custom settings
 '''

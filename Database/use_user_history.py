@@ -1,7 +1,7 @@
 import cPickle as pickle
 import pandas as pd
-from credentials import *
-from sqlalchemy import *
+#from credentials import *
+#from sqlalchemy import *
 
 class User_data(object):
     def __init__(self, uid):
