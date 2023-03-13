@@ -1,7 +1,7 @@
-import cPickle as pickle
+import _pickle as pickle
 import pandas as pd
-#from credentials import *
-#from sqlalchemy import *
+from sqlalchemy import *
+from credentials import *
 
 class User_data(object):
     def __init__(self, uid):
@@ -13,7 +13,7 @@ class User_data(object):
                 self.get_db_data()
                 self.export_data()
             except:
-                print "Could not get new data from database. Using cached data instead"
+                print ("Could not get new data from database. Using cached data instead")
             else:
                 print ('Received fresh user data from MySQL database')
         else:
